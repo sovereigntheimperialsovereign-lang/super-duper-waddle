@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#0a1128" />
     <title>IMPERIAL SOVEREIGN ARCHITECTURE v1.2.0 (PRODUCTION MAINNET)</title>
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob: wss:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https:; font-src 'self' data: https://fonts.gstatic.com https:; img-src 'self' data: blob: https:; media-src 'self' blob: https:; connect-src 'self' https: wss: chrome-extension: extension:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https: ar:; media-src 'self' blob: https: ar:; connect-src 'self' https://mainnet.base.org https://base-mainnet.g.alchemy.com https://base.llamarpc.com https://mainnet.irys.xyz https://arweave.net wss:;">
 
     <style>
         html, body { background-color: #0a1128 !important; }
@@ -16,11 +16,9 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://unpkg.com/@irys/sdk@0.1.1/build/bundle.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
+    <script defer src="https://unpkg.com/@irys/sdk@0.1.1/build/bundle.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
-
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=700;900&family=JetBrains+Mono:wght=400;700;800&display=swap');
 
         :root {
@@ -222,36 +220,7 @@
         </div>
     </div>
 
-    <div id="mediaConfirmModal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[100] hidden items-center justify-center p-4">
-        <div class="chiaroscuro-bg p-6 rounded-2xl border border-amber-600/50 max-w-lg w-full flex flex-col shadow-[0_0_50px_rgba(217,119,6,0.3)]">
-            <h3 class="text-sm font-black font-cinzel text-amber-500 mb-2 uppercase tracking-widest text-center">🎬 CRYPTOGRAPHIC MEDIA PREVIEW</h3>
-            <p class="text-[10px] font-mono text-slate-400 text-center uppercase mb-4 tracking-wider">
-                Please verify the cryptographic DNA and artifact asset structure before ledger deployment.
-            </p>
-            <div id="mediaConfirmationPreviewContainer" class="aspect-[16/9] w-full bg-black border border-stone-900 rounded-xl overflow-hidden flex items-center justify-center mb-4">
-                </div>
-            <div id="mediaConfirmDnaDisplay" class="p-2.5 bg-stone-950 border border-rose-950/40 rounded-lg text-center font-mono text-[10px] text-rose-400 mb-5 break-all">
-                DNA: —
-            </div>
-            <div class="flex gap-3">
-                <button onclick="window.resolveMediaConfirm(false)" class="w-1/2 bg-stone-950 text-stone-400 font-mono text-[10px] py-3 rounded-xl uppercase border border-stone-800 font-bold cursor-pointer hover:bg-stone-900">ABORT CHAIN INJECTION</button>
-                <button onclick="window.resolveMediaConfirm(true)" class="w-1/2 btn-gold-master text-[10px] py-3 rounded-xl font-bold">CONSECRATE & SIGN TRANSMISSION ⚔</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="actionConfirmModal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[110] hidden items-center justify-center p-4">
-        <div class="chiaroscuro-bg p-6 rounded-2xl border border-rose-700/60 max-w-md w-full flex flex-col shadow-[0_0_50px_rgba(190,18,60,0.35)]">
-            <h3 id="actionConfirmTitle" class="text-sm font-black font-cinzel text-rose-400 mb-3 uppercase tracking-widest text-center">⚠ CRITICAL ENFORCEMENT</h3>
-            <p id="actionConfirmMessage" class="text-[11px] font-mono text-slate-300 text-center leading-relaxed mb-6 break-words"></p>
-            <div class="flex gap-3">
-                <button onclick="window.resolveActionConfirm(false)" class="w-1/2 bg-stone-950 text-stone-400 font-mono text-[10px] py-3 rounded-xl uppercase border border-stone-800 font-bold cursor-pointer hover:bg-stone-900">ABORT</button>
-                <button onclick="window.resolveActionConfirm(true)" class="w-1/2 bg-rose-950 text-rose-100 border border-rose-500 font-mono text-[10px] py-3 rounded-xl uppercase font-bold cursor-pointer hover:bg-rose-900">CONFIRM & PROCEED ⚔</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="identityAuthModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[80] hidden items-center justify-center p-4">
+        <div id="identityAuthModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[80] hidden items-center justify-center p-4">
         <div class="chiaroscuro-bg p-6 rounded-2xl border border-rose-900/50 max-w-2xl w-full max-h-[90vh] flex flex-col">
             <h3 class="text-sm font-black font-cinzel text-rose-400 mb-2 uppercase tracking-widest flex-shrink-0">🔒 IDENTITY PASSPORT & SYSTEM GUIDE</h3>
             
@@ -506,20 +475,6 @@
                         STATION STANDBY // CHOOSE AN ACTIVE CELL FROM MATRIX MAP ABOVE
                     </div>
                 </div>
-
-                <div class="mt-3 p-3 bg-gradient-to-br from-stone-950 to-[#1c0a10] border border-amber-600/30 rounded-xl">
-                    <span class="text-[8px] font-mono text-amber-400 font-bold block uppercase mb-2 tracking-widest">💰 TBA LEDGER VAULT BALANCES</span>
-                    <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
-                        <div class="p-2 bg-black/80 rounded border border-stone-950 flex justify-between items-center">
-                            <span class="text-stone-500">ETH CAPITAL:</span>
-                            <span id="tbaEthBalance" class="text-amber-500 font-bold">0.0000 ETH</span>
-                        </div>
-                        <div class="p-2 bg-black/80 rounded border border-stone-950 flex justify-between items-center">
-                            <span class="text-stone-500">WETH LIQUIDITY:</span>
-                            <span id="tbaWethBalance" class="text-rose-400 font-bold">0.0000 WETH</span>
-                        </div>
-                    </div>
-                </div>
                 
                 <div class="mt-3 pt-3 border-t border-stone-900/60">
                     <label class="text-[8px] text-stone-500 font-mono block mb-1 uppercase tracking-widest">// TOKEN BOUND ACCOUNT (TBA ADDRESS)</label>
@@ -600,7 +555,6 @@
                         <a id="linkSocial1" href="#" target="_blank" class="px-4 py-2 bg-stone-900 border border-stone-800 rounded-lg text-[10px] font-mono uppercase text-stone-300 hover:border-amber-500 hover:text-amber-500 transition-colors">✦ LinkedIn Gateway</a>
                         <a id="linkSocial2" href="#" target="_blank" class="px-4 py-2 bg-stone-900 border border-stone-800 rounded-lg text-[10px] font-mono uppercase text-stone-300 hover:border-amber-500 hover:text-amber-500 transition-colors">✦ X / Twitter Gateway</a>
                         <a id="linkSocial3" href="#" target="_blank" class="px-4 py-2 bg-stone-900 border border-stone-800 rounded-lg text-[10px] font-mono uppercase text-stone-300 hover:border-rose-600 hover:text-rose-400 transition-colors">✦ Council Room Discord</a>
-                        <a id="linkSocialClubHouse" href="#" target="_blank" class="px-4 py-2 bg-gradient-to-r from-[#78350f] to-[#d97706] border border-[#fef08a] rounded-lg text-[10px] font-mono font-black uppercase text-black hover:brightness-110 transition-all shadow-[0_0_15px_rgba(217,119,6,0.3)]">🏆 THE SOVEREIGN CLUB HOUSE & SOCIAL</a>
                     </div>
                 </div>
             </div>
@@ -812,7 +766,7 @@
                 <span class="text-[10px] font-mono font-bold text-amber-500 uppercase tracking-widest block border-b border-stone-900 pb-1">⚙ MANIFEST COMPONENT (7 AUTO-MAP FIELDS)</span>
                 <div>
                     <label class="text-[8px] text-stone-500 font-mono block mb-1">ROOT PROPERTY NAME</label>
-                    <input type="text" id="propName" value="THE IMPERIAL SOVEREIGN DEED ♠️" class="w-full bg-stone-950 border border-stone-900 p-2 text-[10px] font-mono text-stone-200 rounded outline-none" />
+                    <input type="text" id="propName" value="Transfer Freedom" class="w-full bg-stone-950 border border-stone-900 p-2 text-[10px] font-mono text-stone-200 rounded outline-none" />
                 </div>
                 <div class="space-y-2 max-h-64 overflow-y-auto scroll-dark pr-1">
                     <div class="bg-stone-950 p-2 rounded border border-stone-900">
@@ -904,11 +858,10 @@
 
     <div id="robotPanel" class="admin-locked chiaroscuro-bg mt-6 p-4 rounded-xl border border-stone-900 font-mono text-[10px] space-y-3 hidden">
         <span class="text-amber-500 font-bold uppercase block">// ARCHITECT COMMUNICATION CHANNELS ALIGNMENT</span>
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
             <div><label class="block text-[8px] text-stone-500 mb-1">LINKEDIN LINK</label><input type="text" id="inputLink1" class="w-full bg-black border border-stone-900 p-2 rounded text-stone-300" /></div>
             <div><label class="block text-[8px] text-stone-500 mb-1">X / TWITTER LINK</label><input type="text" id="inputLink2" class="w-full bg-black border border-stone-900 p-2 rounded text-stone-300" /></div>
             <div><label class="block text-[8px] text-stone-500 mb-1">DISCORD ROOM LINK</label><input type="text" id="inputLink3" class="w-full bg-black border border-stone-900 p-2 rounded text-stone-300" /></div>
-            <div><label class="block text-[8px] text-stone-500 mb-1">CLUB HOUSE LINK</label><input type="text" id="inputLinkClubHouse" class="w-full bg-black border border-stone-900 p-2 rounded text-stone-300" /></div>
         </div>
         <button onclick="saveArchitectGateways(this)" class="px-4 py-2 bg-amber-700 text-black font-black text-[9px] rounded uppercase">RE-ALIGN VECTORS</button>
     </div>
@@ -1048,10 +1001,6 @@ const CONTRACT_ABI = [
     "function walletOfOwner(address owner) view returns (uint256[] memory)"
 ];
 
-const WETH_ABI = [
-    "function balanceOf(address account) view returns (uint256)"
-];
-
 let provider, signer, secureContract, irys;
 let readOnlyProvider, readOnlyContract;
 let pollingInterval = null; 
@@ -1072,47 +1021,6 @@ let currentLoadedMediaData = {
 };
 
 let arweaveTargetFieldType = ""; 
-
-// Session Sync Lock (ข้อ 3)
-let isTransactionPending = false;
-
-// LRU Blob Garbage Collector (ข้อ 3)
-const blobGcCache = new Map();
-const MAX_BLOB_CACHE_SIZE = 50;
-
-function registerBlobForGc(url, objectUrl) {
-    if (blobGcCache.has(url)) return;
-    if (blobGcCache.size >= MAX_BLOB_CACHE_SIZE) {
-        const oldestKey = blobGcCache.keys().next().value;
-        const oldestObjUrl = blobGcCache.get(oldestKey);
-        URL.revokeObjectURL(oldestObjUrl);
-        blobGcCache.delete(oldestKey);
-    }
-    blobGcCache.set(url, objectUrl);
-}
-
-// URI Whitelist Scanner (ข้อ 3)
-function scanSecureUri(uri) {
-    if (!uri || uri.trim() === "") return "";
-    const lower = uri.trim().toLowerCase();
-    if (lower.startsWith("javascript:") || lower.startsWith("data:")) {
-        showNotification("SECURITY BLOCK: Malicious URI sequence detected.", "error");
-        throw new Error("SECURITY_VIOLATION: URI scheme disallowed.");
-    }
-    return uri.trim();
-}
-
-// Numerical Precision Lock `fmtUnits` (ข้อ 3)
-function fmtUnits(value, decimals = 18) {
-    if (!value) return "0.0000";
-    try {
-        const formatted = ethers.utils.formatUnits(value, decimals);
-        const num = parseFloat(formatted);
-        return isNaN(num) ? "0.0000" : num.toFixed(4);
-    } catch (e) {
-        return "0.0000";
-    }
-}
 
 function getImperialRank(tokenId) {
     const id = parseInt(tokenId);
@@ -1143,7 +1051,6 @@ function decodeContractError(err) {
     return err.reason || err.message || "Transaction reverted by EVM";
 }
 
-// Exponential Backoff Fetch (ข้อ 3)
 async function fetchWithCacheSovereign(url, signal = null) {
     if (!url || url.trim() === "") return url;
     let cache = null;
@@ -1152,33 +1059,20 @@ async function fetchWithCacheSovereign(url, signal = null) {
         const cachedResponse = await cache.match(url);
         if (cachedResponse) {
             const blob = await cachedResponse.blob();
-            const objectUrl = URL.createObjectURL(blob);
-            registerBlobForGc(url, objectUrl);
-            return objectUrl;
+            return URL.createObjectURL(blob);
         }
     } catch (e) {
         console.warn("Storage exception: Cache API unavailable. Proceeding direct stream.");
     }
     
-    let cleanUri = url.startsWith('ar://') ? url.replace('ar://', '') : url;
-    const fetchFromGateway = async (gatewayUrl) => {
-        let retries = 3;
-        let delay = 1000;
-        while (retries > 0) {
-            try {
-                const res = await fetch(gatewayUrl, { signal });
-                if (!res.ok) throw new Error("Gateway failure");
-                return await res.blob();
-            } catch (err) {
-                retries--;
-                if (retries === 0) throw err;
-                await new Promise(r => setTimeout(r, delay));
-                delay *= 2; 
-            }
-        }
-    };
-
     try {
+        let cleanUri = url.startsWith('ar://') ? url.replace('ar://', '') : url;
+        const fetchFromGateway = async (gatewayUrl) => {
+            const res = await fetch(gatewayUrl, { signal });
+            if (!res.ok) throw new Error("Gateway failure");
+            return await res.blob();
+        };
+
         const fetchMission = url.startsWith('ar://') 
             ? Promise.any([
                 fetchFromGateway(`https://mainnet.irys.xyz/${cleanUri}`),
@@ -1191,77 +1085,16 @@ async function fetchWithCacheSovereign(url, signal = null) {
             if (signal) signal.addEventListener('abort', () => clearTimeout(timer));
         });
 
-        const blob = await Promise.race([fetchMission, timeoutGuardian(5000)]);
+        const blob = await Promise.race([fetchMission, timeoutGuardian(3500)]);
 
         if (cache) {
             const responseToCache = new Response(blob);
             await cache.put(url, responseToCache);
         }
-        const objectUrl = URL.createObjectURL(blob);
-        registerBlobForGc(url, objectUrl);
-        return objectUrl;
+        return URL.createObjectURL(blob);
     } catch (err) {
         return url.startsWith('ar://') ? `https://mainnet.irys.xyz/${url.replace('ar://', '')}` : url;
     }
-}
-
-// สถาปัตยกรรมการจัดการหน้าต่างยืนยันมีเดียใหม่ ปลอดภัย ไร้สภาวะแทรกซ้อน
-function requestMediaConfirmation(uri, dnaString, mediaTypeHint = "") {
-    return new Promise((resolve) => {
-        const modal = document.getElementById('mediaConfirmModal');
-        const container = document.getElementById('mediaConfirmationPreviewContainer');
-        const dnaDisplay = document.getElementById('mediaConfirmDnaDisplay');
-        
-        container.innerHTML = "";
-        dnaDisplay.textContent = `DNA FIELD: ${dnaString || "N/A"}`;
-        
-        const lowerUri = (uri || "").toLowerCase();
-        const isVideoHint = (mediaTypeHint || "").toLowerCase().startsWith('video');
-        
-        if (isVideoHint || lowerUri.endsWith('.mp4') || lowerUri.endsWith('.webm') || lowerUri.includes('video')) {
-            const video = document.createElement('video');
-            video.src = scanSecureUri(uri); // ล้างความเสี่ยง XSS ผ่าน URI Validation Loop
-            video.autoplay = true;
-            video.muted = true;
-            video.loop = true;
-            video.controls = true;
-            video.className = "max-h-full max-w-full object-contain";
-            container.appendChild(video);
-        } else {
-            const img = document.createElement('img');
-            img.src = scanSecureUri(uri);
-            img.className = "max-h-full max-w-full object-contain";
-            container.appendChild(img);
-        }
-
-        modal.classList.remove('hidden');
-
-        // สร้างคอนโทรลเลอร์แบบจำกัดขอบเขตและล้างทิ้งอัตโนมัติเมื่อทำงานเสร็จ
-        const handleDecision = (approved) => {
-            modal.classList.add('hidden');
-            container.innerHTML = "";
-            window.resolveMediaConfirm = null; // ถอนราก Callback ออกจากหน่วยความจำ Global ทันที
-            resolve(approved);
-        };
-
-        window.resolveMediaConfirm = handleDecision;
-    });
-}
-
-
-function requestActionConfirmation(title, message) {
-    return new Promise((resolve) => {
-        const modal = document.getElementById('actionConfirmModal');
-        const titleElem = document.getElementById('actionConfirmTitle');
-        const msgElem = document.getElementById('actionConfirmMessage');
-        if (titleElem) titleElem.textContent = title || "⚠ CRITICAL ENFORCEMENT";
-        if (msgElem) msgElem.textContent = message || "";
-        modal.classList.remove('hidden');
-        window.resolveActionConfirm = (approved) => {
-            modal.classList.add('hidden');
-            resolve(approved);
-        };
-    });
 }
 
 function showNotification(msg, type = 'error') {
@@ -1421,7 +1254,7 @@ async function executeGatewayUnlock(event) {
         return;
     }
     
-  btn = toggleButtonLoading(event, true);
+    const btn = toggleButtonLoading(event, true);
     try {
         const address = await signer.getAddress();
         const isHoldingDeed = await checkHolding(address);
@@ -1519,37 +1352,22 @@ async function loadDeedMetadata(tokenId) {
 }
 
 function toggleButtonLoading(targetInput, isLoading) {
-    const btn = targetInput?.currentTarget || targetInput;
-    if (!btn || !btn.classList) return null;
+    if (!targetInput) return null;
+    const btn = targetInput.currentTarget || targetInput;
+    if (!btn?.classList) return null;
 
     if (isLoading) {
-        if (!btn.dataset.originalText) btn.dataset.originalText = btn.textContent; // ใช้ textContent แทน innerHTML
-        
-        // [A11Y]: บอก Screen Reader ว่าระบบกำลังประมวลผล
-        btn.setAttribute('aria-busy', 'true');
+        if(!btn.dataset.originalText) btn.dataset.originalText = btn.innerHTML;
+        btn.innerHTML = `<span class="inline-block animate-spin mr-1">⏳</span> DISPATCHING...`;
         btn.disabled = true;
-        btn.classList.add('btn-processing', 'cursor-not-allowed', 'opacity-70');
-        
-        // สร้าง Loading Element ด้วย DOM API ปลอดภัยกว่า innerHTML
-        btn.textContent = ' DISPATCHING...';
-        const spinner = document.createElement('span');
-        spinner.className = 'inline-block animate-spin mr-1';
-        spinner.setAttribute('aria-hidden', 'true');
-        spinner.textContent = '⏳';
-        btn.prepend(spinner);
-
+        btn.classList.add('btn-processing');
     } else {
-        if (btn.dataset.originalText) btn.textContent = btn.dataset.originalText;
-        btn.removeAttribute('aria-busy');
+        if(btn.dataset.originalText) btn.innerHTML = btn.dataset.originalText;
         btn.disabled = false;
-        btn.classList.remove('btn-processing', 'cursor-not-allowed', 'opacity-70');
+        btn.classList.remove('btn-processing');
     }
     return btn;
 }
-
-/* ============================================================
-   SOVEREIGN INFRASTRUCTURE PIPELINE - PART 2 ARCHITECTURE
-   ============================================================ */
 
 async function initReadOnlyRPC() {
     const RPC_ENDPOINTS = [
@@ -1588,44 +1406,23 @@ function loadArchitectGateways() {
     const l1 = localStorage.getItem('sov_gate_l1') || "https://www.linkedin.com/in/machiavellian-dark-cool-441976219";
     const l2 = localStorage.getItem('sov_gate_l2') || "https://x.com/BungthongS45922";
     const l3 = localStorage.getItem('sov_gate_l3') || "https://discord.gg/SM7vaDKB";
-    const l4 = localStorage.getItem('sov_gate_club') || "https://discord.gg/SM7vaDKB";
+    
+    const lnk1 = document.getElementById('linkSocial1'), lnk2 = document.getElementById('linkSocial2'), lnk3 = document.getElementById('linkSocial3');
+    if(lnk1) lnk1.href = l1; if(lnk2) lnk2.href = l2; if(lnk3) lnk3.href = l3;
 
-    const lnk1 = document.getElementById('linkSocial1'), lnk2 = document.getElementById('linkSocial2'), lnk3 = document.getElementById('linkSocial3'), lnk4 = document.getElementById('linkSocialClubHouse');
-    if(lnk1) lnk1.href = l1;
-    if(lnk2) lnk2.href = l2;
-    if(lnk3) lnk3.href = l3;
-    if(lnk4) lnk4.href = l4;
-
-    const inp1 = document.getElementById('inputLink1'), inp2 = document.getElementById('inputLink2'), inp3 = document.getElementById('inputLink3'), inp4 = document.getElementById('inputLinkClubHouse');
-    if(inp1) inp1.value = l1;
-    if(inp2) inp2.value = l2;
-    if(inp3) inp3.value = l3;
-    if(inp4) inp4.value = l4;
+    const inp1 = document.getElementById('inputLink1'), inp2 = document.getElementById('inputLink2'), inp3 = document.getElementById('inputLink3');
+    if(inp1 && inp2 && inp3) { inp1.value = l1; inp2.value = l2; inp3.value = l3; }
 }
 
 function saveArchitectGateways(e) {
     const btn = toggleButtonLoading(e, true);
     setTimeout(() => {
-        try {
-            const v1 = document.getElementById('inputLink1')?.value.trim() || "";
-            const v2 = document.getElementById('inputLink2')?.value.trim() || "";
-            const v3 = document.getElementById('inputLink3')?.value.trim() || "";
-            const v4 = document.getElementById('inputLinkClubHouse')?.value.trim() || "";
-
-            // URI Whitelist Hardening: block javascript:/data: injection into stored links
-            [v1, v2, v3, v4].forEach(v => scanSecureUri(v));
-
-            localStorage.setItem('sov_gate_l1', v1);
-            localStorage.setItem('sov_gate_l2', v2);
-            localStorage.setItem('sov_gate_l3', v3);
-            localStorage.setItem('sov_gate_club', v4);
-            loadArchitectGateways();
-            appendLog("Architect communication vectors re-aligned dynamically.", "text-orange-400 font-bold");
-        } catch (err) {
-            appendLog(`Gateway re-alignment blocked: ${err.message}`, "text-red-500");
-        } finally {
-            if (btn) toggleButtonLoading(btn, false);
-        }
+        localStorage.setItem('sov_gate_l1', document.getElementById('inputLink1')?.value.trim() || "");
+        localStorage.setItem('sov_gate_l2', document.getElementById('inputLink2')?.value.trim() || "");
+        localStorage.setItem('sov_gate_l3', document.getElementById('inputLink3')?.value.trim() || "");
+        loadArchitectGateways();
+        appendLog("Architect communication vectors re-aligned dynamically.", "text-orange-400 font-bold");
+        if (btn) toggleButtonLoading(btn, false);
     }, 500);
 }
 
@@ -1656,7 +1453,7 @@ async function connectWallet(e) {
             signer = provider.getSigner();
             secureContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
             
-            // [แก้ไขเพื่อป้องกัน Domino Effect]: ใช้ Global Flag เช็คแทนการลบ Listeners ทั้งหมด
+            // [คงไว้] ป้องกัน Domino Effect: ใช้ Global Flag เช็คแทนการลบ Listeners ทั้งหมด
             if (!window.walletListenersSetup) {
                 window.ethereum.on('accountsChanged', async (accounts) => {
                     if (accounts.length === 0) {
@@ -1747,12 +1544,12 @@ async function connectWallet(e) {
                     : (window.WebIrys.WebIrys || window.WebIrys.default);
                 if (typeof WebIrysCtor !== 'function') throw new Error("Irys WebIrys constructor unresolved from SDK namespace.");
 
+                // [แก้ไขกลับตามข้อเท็จจิง]: ต้องใช้ token: "ethereum" แม้ว่าจะเชื่อมต่อบน Base Network ก็ตาม
                 irys = new WebIrysCtor({
                     url: "https://mainnet.irys.xyz", 
                     token: "ethereum",
-                    wallet: { provider: provider }
+                    wallet: { provider: window.ethereum }
                 });
-
                 await irys.ready();
                 
                 appendLog(`Autonomous Irys permanent settlement bridge successfully engaged.`, "text-emerald-400 font-bold");
@@ -1783,6 +1580,7 @@ async function connectWallet(e) {
         if (btn) toggleButtonLoading(btn, false);
     }
 }
+
 
 function setupRealTimeEvents() {
     if (!secureContract) return;
@@ -1836,13 +1634,13 @@ async function syncContractStates() {
             if(el) el.textContent = val;
         };
 
-        updateText('lblMintPrice', fmtUnits(rMint));
-        updateText('lblNovaFee', fmtUnits(rNova));
-        updateText('displayReserve', `${fmtUnits(tStatus[0])} ETH`);
-        updateText('displayCouncilPool', `${fmtUnits(tStatus[1])} ETH`);
+        updateText('lblMintPrice', ethers.utils.formatEther(rMint));
+        updateText('lblNovaFee', ethers.utils.formatEther(rNova));
+        updateText('displayReserve', `${ethers.utils.formatEther(tStatus[0])} ETH`);
+        updateText('displayCouncilPool', `${ethers.utils.formatEther(tStatus[1])} ETH`);
         updateText('displaySupply', `${tStatus[2].toString()} / 333`);
         updateText('lblHistoricalMint', tStatus[3].toString());
-        updateText('lblReservePerNFT', fmtUnits(tStatus[4]));
+        updateText('lblReservePerNFT', ethers.utils.formatEther(tStatus[4]));
 
         fetchAndDisplayProposals();
     } catch (err) { 
@@ -1910,7 +1708,7 @@ async function fetchAndDisplayProposals() {
                 const i = res.id;
                 const prop = res.p;
 
-                const amountEth = fmtUnits(prop.amount || 0);
+                const amountEth = ethers.utils.formatEther(prop.amount || 0);
                 const massVotes = prop.massVotes ? parseInt(prop.massVotes.toString(), 10) : 0;
                 const isExecuted = prop.executed || false;
                 const deadlineSeconds = prop.deadline ? prop.deadline.toNumber() : 0;
@@ -2037,30 +1835,42 @@ function openDeedUploadTrigger(tokenId, fieldType) {
 
 /* ============================================================
    MOBILE-HARDENED IRYS UPLOAD SUBSYSTEM
+   - OS/Hardware detection + dynamic memory allocation
+   - Throttled progress tracking
+   - Auto-retry / network recovery
+   - iOS RAM-ceiling safe-guard
    ============================================================ */
 
+// 1) OS & HARDWARE DETECTION ---------------------------------
 function detectUploadEnvironment() {
     const ua = navigator.userAgent || "";
     const platform = navigator.platform || "";
-    const isIOS = /iPad|iPhone|iPod/.test(ua) || (platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isIOS = /iPad|iPhone|iPod/.test(ua) ||
+        // iPadOS 13+ masquerades as Mac; disambiguate via touch points.
+        (platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const isAndroid = /Android/i.test(ua);
     const isMobile = isIOS || isAndroid || /Mobi|Mobile/i.test(ua);
+    // deviceMemory (GB) is only exposed on Chromium; treat undefined as unknown.
     const deviceMemory = navigator.deviceMemory || (isMobile ? 2 : 8);
 
+    // Dynamic allocation: shrink chunk + concurrency on memory-constrained mobile
+    // so the GC can reclaim freed chunk buffers before the next batch is staged.
     let chunkSize, batchSize;
     if (isIOS) {
-        chunkSize = 2 * 1024 * 1024;   
+        // iOS Safari has the lowest per-tab RAM ceiling -> most conservative.
+        chunkSize = 2 * 1024 * 1024;   // 2MB
         batchSize = 1;
     } else if (isMobile || deviceMemory <= 4) {
-        chunkSize = 2 * 1024 * 1024;   
+        chunkSize = 2 * 1024 * 1024;   // 2MB
         batchSize = 2;
     } else {
-        chunkSize = 5 * 1024 * 1024;   
+        chunkSize = 5 * 1024 * 1024;   // 5MB desktop
         batchSize = 3;
     }
     return { isIOS, isAndroid, isMobile, deviceMemory, chunkSize, batchSize };
 }
 
+// 2) THROTTLED PROGRESS TRACKING -----------------------------
 function createProgressController(totalBytes) {
     const shell = document.getElementById('uploadProgressShell');
     const fill = document.getElementById('uploadProgressFill');
@@ -2074,6 +1884,7 @@ function createProgressController(totalBytes) {
     }
     function paint(force) {
         const now = performance.now();
+        // Throttle DOM writes to ~400ms to minimize repaints / jank on mobile.
         if (!force && now - lastPaint < 400) return;
         lastPaint = now;
         if (fill) fill.style.width = pct + '%';
@@ -2096,6 +1907,10 @@ function createProgressController(totalBytes) {
     };
 }
 
+// 3) AUTO-RETRY / NETWORK RECOVERY ---------------------------
+// chunkedUploader resumes from its internal cursor on a fresh uploadFile call,
+// so retrying the whole call recovers transient 4G/5G drops without re-sending
+// already-anchored chunks where the SDK supports it.
 async function uploadWithRetry(file, tags, env, progress, maxRetries = 4) {
     let attempt = 0;
     let lastErr;
@@ -2104,6 +1919,7 @@ async function uploadWithRetry(file, tags, env, progress, maxRetries = 4) {
         try { if (typeof uploader.setChunkSize === 'function') uploader.setChunkSize(env.chunkSize); } catch (e) {}
         try { if (typeof uploader.setBatchSize === 'function') uploader.setBatchSize(env.batchSize); } catch (e) {}
 
+        // chunkUpload fires per anchored chunk: { id, offset, size, totalUploaded }
         const onChunk = (info) => {
             try { progress.set(info && (info.totalUploaded ?? info.offset) || 0); } catch (e) {}
         };
@@ -2117,6 +1933,7 @@ async function uploadWithRetry(file, tags, env, progress, maxRetries = 4) {
             lastErr = err;
             const msg = (err && err.message ? err.message : String(err)).toLowerCase();
             const isUserAbort = msg.includes('declined') || msg.includes('rejected by user') || msg.includes('user denied');
+            // Do not retry deliberate user cancellation or hard RAM/fetch ceilings.
             if (isUserAbort) throw err;
             attempt++;
             if (attempt > maxRetries) break;
@@ -2130,9 +1947,12 @@ async function uploadWithRetry(file, tags, env, progress, maxRetries = 4) {
     throw lastErr;
 }
 
+// 4) iOS SAFE-GUARD ------------------------------------------
+// iOS Safari aborts the tab when a single allocation approaches its RAM ceiling
+// (surfacing as a generic "fetch"/"load failed" error). Warn before we even begin.
 function evaluateIosSafeguard(env, file, isVideo) {
     if (!env.isIOS) return { ok: true };
-    const IOS_VIDEO_SOFT_LIMIT = 150 * 1024 * 1024; 
+    const IOS_VIDEO_SOFT_LIMIT = 150 * 1024 * 1024; // ~150MB practical safe ceiling on Safari
     if (isVideo && file.size > IOS_VIDEO_SOFT_LIMIT) {
         return {
             ok: false,
@@ -2157,7 +1977,7 @@ async function processDeedUploadAssignment(event) {
     }
     
     let arUri = ""; 
-    const maxByteSize = 300 * 1024 * 1024; 
+    const maxByteSize = 300 * 1024 * 1024; // 300 MB Constraints
     if (file.size > maxByteSize) {
         appendLog(`Payload rejected: ${file.name} exceeds explicit 300 MB maximum constraints.`, "text-red-500 font-bold");
         showNotification("Structural exception: Upload payload sizes are strictly confined below the 300 MB threshold.", "error");
@@ -2210,6 +2030,7 @@ async function processDeedUploadAssignment(event) {
         }
     }
 
+    // Detect runtime environment + apply iOS RAM safe-guard BEFORE any heavy work.
     const env = detectUploadEnvironment();
     const guard = evaluateIosSafeguard(env, file, userIntentType === 'video' || isActuallyVideo);
     if (!guard.ok) {
@@ -2234,11 +2055,14 @@ async function processDeedUploadAssignment(event) {
         if (loadedBalance.isLessThan(price)) {
             const diff = price.minus(loadedBalance);
             const diffWithBuffer = diff.multipliedBy(1.15).integerValue(); 
+            
             const diffString = diffWithBuffer.toString();
-            const costInEth = fmtUnits(diffString);
+            const costInEth = ethers.utils.formatEther(diffString);
             
             const isConfirmed = await requestFundConfirmation(costInEth);
-            if (!isConfirmed) throw new Error("User declined the transaction funding protocol.");
+            if (!isConfirmed) {
+                throw new Error("User declined the transaction funding protocol.");
+            }
             try {
                 await irys.fund(diffWithBuffer);
             } catch (fundErr) {
@@ -2250,7 +2074,10 @@ async function processDeedUploadAssignment(event) {
         progress.show();
 
         const tags = [{ name: "Content-Type", value: file.type }];
+
+        // Adaptive chunking + per-chunk progress + auto-retry network recovery.
         const response = await uploadWithRetry(file, tags, env, progress);
+
         arUri = `ar://${response.data.id}`;
         
         appendLog(`Payload anchored permanently. TXID Identifier: ${response.data.id}`, "text-emerald-400 font-bold");
@@ -2289,6 +2116,7 @@ async function processDeedUploadAssignment(event) {
             statusBox.textContent = `NODE #${activeTargetDeedUploadSlot}: STREAM BROKEN`;
             statusBox.className = "text-[10px] text-red-500 font-mono font-bold uppercase";
         }
+        // Distinguish a RAM-ceiling crash (esp. iOS) from a normal cancellation.
         if (isMemoryCeilingError(err)) {
             const advice = env.isIOS
                 ? "iOS Safari ran out of memory for this payload. Please use a desktop browser or reduce the file size."
@@ -2296,9 +2124,7 @@ async function processDeedUploadAssignment(event) {
             appendLog(`Memory-ceiling failure detected: ${advice}`, "text-red-500 font-bold");
             showNotification(advice, "error");
         } else {
-            console.error("🔥 IRYS RAW ERROR TRACE:", err);
-            const actualError = err.message || "Unknown provider exception";
-            showNotification(`System Exception: ${actualError}`, "error");   
+            showNotification(`System Notification: ธุรกรรมการอัปโหลดหรือจ่ายค่าแก๊สถูกยกเลิก`, "error");
         }
     } finally {
         progress.hide();
@@ -2353,7 +2179,7 @@ async function buildAndUploadMetadata(e) {
         if (frontUri) {
             if (frontType === "video") {
                 metadata.animation_url = frontUri;
-                metadata.image = frontUri; 
+                metadata.image = frontUri; // FIX: Fallback Image to standard compliant
             } else {
                 metadata.image = frontUri;
             }
@@ -2428,11 +2254,10 @@ async function executeSetParams(e) {
 
 async function executeSetBaseUri(e) {
     if (!secureContract) { showNotification("Action suspended: Authenticate wallet signature first.", "error"); return; }
-    let uri = document.getElementById('inputBaseUri')?.value.trim();
+    const uri = document.getElementById('inputBaseUri')?.value.trim();
     if(!uri) return;
     const btn = toggleButtonLoading(e, true);
     try {
-        uri = scanSecureUri(uri); 
         await secureContract.callStatic.setBaseURI(uri);
         const tx = await secureContract.setBaseURI(uri);
         await tx.wait();
@@ -2582,17 +2407,22 @@ async function triggerForge(type, e) {
         return;
     }
 
+    // [CRITICAL FETCH]: Instantly retrieve the pre-embedded front-end JSON URI from the architect
     const existingFrontUri = document.getElementById('forgeFrontUri')?.value.trim();
     if (!existingFrontUri) {
         showNotification("METADATA EXCEPTION: Architect front-end URI missing from system.", "error");
         return;
     }
 
+    // 1. Instantly trigger file selector for the back-end media
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = 'image/*,video/*';
+    // [iOS SAFARI FIX] The dynamic input MUST be attached to the DOM before .click(),
+    // otherwise iOS/iPadOS Safari silently blocks the native file picker.
     fileInput.style.display = 'none';
 
+    // Guarantees the transient input is always detached from <body> once handled.
     const cleanupFileInput = () => {
         if (fileInput.parentNode === document.body) document.body.removeChild(fileInput);
     };
@@ -2601,16 +2431,10 @@ async function triggerForge(type, e) {
         const file = event.target.files[0];
         if (!file) { cleanupFileInput(); return; }
 
-        const previewObjectUrl = URL.createObjectURL(file);
-        const dnaField = document.getElementById('novaDnaInput')?.value.trim() || "N/A";
-        let isConfirmed = false;
-        try {
-            isConfirmed = await requestMediaConfirmation(previewObjectUrl, dnaField, file.type);
-        } finally {
-            URL.revokeObjectURL(previewObjectUrl);
-        }
+        // 2. [PRE-FLIGHT CONFIRMATION]: Safeguard barrier to eliminate accidental gas expenditures
+        const isConfirmed = confirm(`Are you sure you want to forge using "${file.name}" as the back-end media?\n\n(Confirmation triggers permanent Arweave upload and direct blockchain settlement.)`);
         if (!isConfirmed) {
-            fileInput.value = ""; 
+            fileInput.value = ""; // Flush file cache if aborted
             cleanupFileInput();
             return;
         }
@@ -2619,20 +2443,20 @@ async function triggerForge(type, e) {
         try {
             if (!irys) throw new Error("Irys SDK Bridge is offline. Establish wallet connection first.");
 
+            // 3. Single-pass permanent ingestion into Arweave
             appendLog(`Inscribing back-end media onto permanent Arweave storage...`, "text-blue-400");
             const env = detectUploadEnvironment();
             const tags = [{ name: "Content-Type", value: file.type }];
-            
-            const progress = createProgressController(file.size);
-            progress.show();
-            const response = await uploadWithRetry(file, tags, env, progress); 
+            const response = await uploadWithRetry(file, tags, env);
             const backMediaUri = `ar://${response.data.id}`;
 
             appendLog(`Back-end media successfully anchored: ${backMediaUri}`, "text-emerald-400 font-bold");
             
+            // Mirror state to UI layer
             const backUriField = document.getElementById('forgeBackUri');
             if (backUriField) backUriField.value = backMediaUri;
 
+            // 4. One-Shot Dual-Identity Settlement on Smart Contract
             appendLog(`Initiating sovereign transaction on Smart Contract (${type})...`, "text-yellow-400");
             const val = await secureContract.mintPrice();
             const tokenIdBn = ethers.BigNumber.from(tokenId);
@@ -2657,21 +2481,23 @@ async function triggerForge(type, e) {
             showNotification("Transaction failed. Check console/logs for details.", "error");
         } finally {
             if (btn) toggleButtonLoading(btn, false);
-            fileInput.value = ""; 
-            cleanupFileInput(); 
+            fileInput.value = ""; // Flush state
+            cleanupFileInput(); // [iOS SAFARI FIX] Detach transient input from <body>
         }
     };
 
+    // [iOS SAFARI FIX] Attach to <body> BEFORE triggering the native picker.
     document.body.appendChild(fileInput);
     fileInput.click();
 }
 
+// --- THE SOVEREIGN NOVA MODAL CONTROLLERS ---
 function openNovaWarn() {
     const modal = document.getElementById('novaWarnModal');
     if (modal) {
         modal.classList.remove('hidden');
         const ackCheckbox = document.getElementById('novaAck');
-        if (ackCheckbox) ackCheckbox.checked = false; 
+        if (ackCheckbox) ackCheckbox.checked = false; // รีเซ็ตทุกครั้งที่เปิด
     }
 }
 
@@ -2685,6 +2511,7 @@ function closeNovaWarn(isConfirmed) {
             showNotification("EXCEPTION: คุณต้องติ๊กยอมรับเงื่อนไขความเสี่ยงก่อนดำเนินการ", "error");
             return;
         }
+        // ยิงคำสั่งไปที่เครื่องยนต์หลัก
         const fakeEvent = { currentTarget: document.getElementById('novaConfirmBtn') };
         triggerIdentityNova(fakeEvent);
     }
@@ -2735,12 +2562,11 @@ async function triggerIdentityNova(e) {
     
     const btn = toggleButtonLoading(e, true);
     try {
-        const safeVideo = scanSecureUri(video);
-        const safeHidden = scanSecureUri(hidden);
         const fee = await secureContract.novaFee();
         
-        await secureContract.callStatic.THE_SOVEREIGN_NOVA(id, dna, safeVideo, safeHidden, { value: fee });
-        const tx = await secureContract.THE_SOVEREIGN_NOVA(id, dna, safeVideo, safeHidden, { value: fee });
+        await secureContract.callStatic.THE_SOVEREIGN_NOVA(id, dna, video, hidden, { value: fee });
+        
+        const tx = await secureContract.THE_SOVEREIGN_NOVA(id, dna, video, hidden, { value: fee });
         await tx.wait(); 
         syncContractStates();
         delete GLOBAL_NODE_CACHE[id.toString()];
@@ -2784,15 +2610,12 @@ async function executeUpdateIdentity(e) {
     const tokenId = validateTokenRange(rawId);
     if(!tokenId) return;
     
-    let frontUri = document.getElementById('forgeFrontUri')?.value.trim() || currentLoadedMediaData.front;
-    let backUri = document.getElementById('forgeBackUri')?.value.trim() || currentLoadedMediaData.back;
-    let videoUri = document.getElementById('novaVideoUri')?.value.trim() || currentLoadedMediaData.video;
+    const frontUri = document.getElementById('forgeFrontUri')?.value.trim() || currentLoadedMediaData.front;
+    const backUri = document.getElementById('forgeBackUri')?.value.trim() || currentLoadedMediaData.back;
+    const videoUri = document.getElementById('novaVideoUri')?.value.trim() || currentLoadedMediaData.video;
     
     const btn = toggleButtonLoading(e, true);
     try {
-        frontUri = scanSecureUri(frontUri);
-        backUri = scanSecureUri(backUri);
-        videoUri = scanSecureUri(videoUri);
         await secureContract.callStatic.updateIdentity(tokenId, frontUri, backUri, videoUri); 
         const tx = await secureContract.updateIdentity(tokenId, frontUri, backUri, videoUri);
         await tx.wait();
@@ -2836,10 +2659,7 @@ async function executeSovereignSupport(e) {
     const rawId = document.getElementById('settleTokenId')?.value.trim();
     const tokenId = validateTokenRange(rawId);
     if(!tokenId) return;
-    const confirmBurn = await requestActionConfirmation(
-        "☠ SOVEREIGN IMMOLATION",
-        `CRITICAL WARNING: You are about to permanently destroy Asset Node #${tokenId} to reclaim liquidity. This action CANNOT be undone.`
-    );
+    const confirmBurn = confirm("CRITICAL WARNING: You are about to permanently destroy this Asset Node to reclaim liquidity. This action CANNOT be undone. Are you absolutely sure?");
     if(!confirmBurn) return;
     
     const btn = toggleButtonLoading(e, true);
@@ -2907,7 +2727,9 @@ async function renderToViewport(containerId, path, defaultText, explicitMediaTyp
         }
 
         container.dataset.blobUrl = finalUrl;
+        
         const mimeType = explicitMediaType ? explicitMediaType : guessMediaType(path);
+        
         renderMediaToDOM(container, finalUrl, mimeType);
 
     } catch (e) {
@@ -3045,7 +2867,6 @@ function applySlotToNova(slotNum) {
         showNotification("EXCEPTION: กรุณาใส่ลิงก์ Arweave (ar://) หรือ URL ในช่อง Template ก่อนกด SELECT & APPLY", "error");
     }
 }
-
 function getImperialRankDetailed(tokenId) {
     const id = parseInt(tokenId, 10);
     if (isNaN(id)) return "UNKNOWN ENTITY";
@@ -3092,6 +2913,7 @@ async function auditTokenFromLedger(tokenId) {
         const card = document.getElementById('sovereignFlipCard');
         if (card) card.classList.remove('flipped');
 
+        // สถาปัตยกรรมใหม่: เชื่อมโยงกับ tbaAddressDisplay และใช้ .value
         const tbaInputElem = document.getElementById('tbaAddressDisplay');
         if (tbaInputElem) tbaInputElem.value = "Calculating deterministic ERC-6551 TBA address hash...";
 
@@ -3105,11 +2927,10 @@ async function auditTokenFromLedger(tokenId) {
         try {
             const onChainTBA = await activeContract.getTBA(ethers.BigNumber.from(tokenId));
             if (mySession !== currentAuditSession) return; 
+            // อัปเดตค่ากลับเข้าไปใน Input
             if (tbaInputElem) tbaInputElem.value = onChainTBA;
-            await refreshTbaBalances(onChainTBA, mySession);
         } catch(tbaErr) {
             if (tbaInputElem) tbaInputElem.value = "CRITICAL: FAILED TO EXTRACT DETERMINISTIC ADDR PIVOT";
-            setTbaBalanceDisplay("0.0000", "0.0000");
         }
 
         currentLoadedMediaData.front = mappedNode.front;
@@ -3155,37 +2976,9 @@ async function auditTokenFromLedger(tokenId) {
         const metaDisp = document.getElementById('activeDeedMetadataDisplay');
         if(metaDisp) metaDisp.textContent = `STATION IDLE // MATRIX CELL INDEX ${tokenId} IS EMPTY COLD SPACE`;
         
+        // กรณี Error ให้แสดงคำว่า DORMANT ในช่อง Input
         const tbaInputElem = document.getElementById('tbaAddressDisplay');
         if(tbaInputElem) tbaInputElem.value = "DORMANT";
-
-        setTbaBalanceDisplay("0.0000", "0.0000");
-    }
-}
-
-function setTbaBalanceDisplay(eth, weth) {
-    const ethElem = document.getElementById('tbaEthBalance');
-    const wethElem = document.getElementById('tbaWethBalance');
-    if (ethElem) ethElem.textContent = `${eth} ETH`;
-    if (wethElem) wethElem.textContent = `${weth} WETH`;
-}
-
-async function refreshTbaBalances(tbaAddress, sessionRef) {
-    if (!tbaAddress || !ethers.utils.isAddress(tbaAddress) || tbaAddress === ethers.constants.AddressZero) {
-        setTbaBalanceDisplay("0.0000", "0.0000");
-        return;
-    }
-    const netProvider = (secureContract && secureContract.provider) || readOnlyProvider;
-    if (!netProvider) { setTbaBalanceDisplay("0.0000", "0.0000"); return; }
-    try {
-        const wethContract = new ethers.Contract(WETH_ADDRESS, WETH_ABI, netProvider);
-        const [ethBal, wethBal] = await Promise.all([
-            netProvider.getBalance(tbaAddress),
-            wethContract.balanceOf(tbaAddress).catch(() => ethers.BigNumber.from(0))
-        ]);
-        if (typeof sessionRef !== 'undefined' && sessionRef !== currentAuditSession) return;
-        setTbaBalanceDisplay(fmtUnits(ethBal), fmtUnits(wethBal));
-    } catch (err) {
-        setTbaBalanceDisplay("0.0000", "0.0000");
     }
 }
 
@@ -3268,12 +3061,50 @@ function setupMatrixGrid() {
             auditTokenFromLedger(tokenId);
             
             const stationLabel = document.getElementById('targetBridgeFieldLabel');
-            if (stationLabel) {
-                stationLabel.textContent = `TARGET ASPECT: NODE CORNER #${tokenId} [FRONT]`;
-            }
+            if (stationLabel) stationLabel.textContent = `TARGET ASPECT: NODE CORNER #${tokenId}`;
         }
     });
+    
+    const searchInput = document.getElementById('gridSearchInput');
+    if (searchInput) {
+        searchInput.addEventListener('input', filterSovereignGrid);
+    }
 }
+
+const LOG_MAX_ROWS = 100;
+let _logScrollQueued = false;
+
+function appendLog(msg, colorClass = 'text-slate-400') {
+    const box = document.getElementById('systemLogBox');
+    if (!box) return;
+    const timeStr = new Date().toUTCString();
+
+    const logEntry = document.createElement('div');
+    logEntry.className = colorClass + " mt-1 break-words";
+    logEntry.textContent = `[${timeStr}] > NEXUS: ${msg}`;
+
+    box.appendChild(logEntry);
+
+    // Batch-trim overflow in a single pass instead of repeated reflow-inducing reads,
+    // minimizing layout thrash / DOM repaints when the log is saturated.
+    const overflow = box.children.length - LOG_MAX_ROWS;
+    if (overflow > 0) {
+        const range = document.createRange();
+        range.setStartBefore(box.firstChild);
+        range.setEndAfter(box.children[overflow - 1]);
+        range.deleteContents();
+    }
+
+    // Coalesce scroll updates into one frame to avoid forced synchronous layout.
+    if (!_logScrollQueued) {
+        _logScrollQueued = true;
+        requestAnimationFrame(() => {
+            box.scrollTop = box.scrollHeight;
+            _logScrollQueued = false;
+        });
+    }
+}
+
 function switchStation(station) {
     const tabFront = document.getElementById("tabFront");
     const tabBack = document.getElementById("tabBack");
