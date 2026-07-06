@@ -220,7 +220,36 @@
         </div>
     </div>
 
-        <div id="identityAuthModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[80] hidden items-center justify-center p-4">
+    <div id="mediaConfirmModal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[100] hidden items-center justify-center p-4">
+        <div class="chiaroscuro-bg p-6 rounded-2xl border border-amber-600/50 max-w-lg w-full flex flex-col shadow-[0_0_50px_rgba(217,119,6,0.3)]">
+            <h3 class="text-sm font-black font-cinzel text-amber-500 mb-2 uppercase tracking-widest text-center">🎬 CRYPTOGRAPHIC MEDIA PREVIEW</h3>
+            <p class="text-[10px] font-mono text-slate-400 text-center uppercase mb-4 tracking-wider">
+                Please verify the cryptographic DNA and artifact asset structure before ledger deployment.
+            </p>
+            <div id="mediaConfirmationPreviewContainer" class="aspect-[16/9] w-full bg-black border border-stone-900 rounded-xl overflow-hidden flex items-center justify-center mb-4">
+                </div>
+            <div id="mediaConfirmDnaDisplay" class="p-2.5 bg-stone-950 border border-rose-950/40 rounded-lg text-center font-mono text-[10px] text-rose-400 mb-5 break-all">
+                DNA: —
+            </div>
+            <div class="flex gap-3">
+                <button onclick="window.resolveMediaConfirm(false)" class="w-1/2 bg-stone-950 text-stone-400 font-mono text-[10px] py-3 rounded-xl uppercase border border-stone-800 font-bold cursor-pointer hover:bg-stone-900">ABORT CHAIN INJECTION</button>
+                <button onclick="window.resolveMediaConfirm(true)" class="w-1/2 btn-gold-master text-[10px] py-3 rounded-xl font-bold">CONSECRATE & SIGN TRANSMISSION ⚔</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="actionConfirmModal" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[110] hidden items-center justify-center p-4">
+        <div class="chiaroscuro-bg p-6 rounded-2xl border border-rose-700/60 max-w-md w-full flex flex-col shadow-[0_0_50px_rgba(190,18,60,0.35)]">
+            <h3 id="actionConfirmTitle" class="text-sm font-black font-cinzel text-rose-400 mb-3 uppercase tracking-widest text-center">⚠ CRITICAL ENFORCEMENT</h3>
+            <p id="actionConfirmMessage" class="text-[11px] font-mono text-slate-300 text-center leading-relaxed mb-6 break-words"></p>
+            <div class="flex gap-3">
+                <button onclick="window.resolveActionConfirm(false)" class="w-1/2 bg-stone-950 text-stone-400 font-mono text-[10px] py-3 rounded-xl uppercase border border-stone-800 font-bold cursor-pointer hover:bg-stone-900">ABORT</button>
+                <button onclick="window.resolveActionConfirm(true)" class="w-1/2 bg-rose-950 text-rose-100 border border-rose-500 font-mono text-[10px] py-3 rounded-xl uppercase font-bold cursor-pointer hover:bg-rose-900">CONFIRM & PROCEED ⚔</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="identityAuthModal" class="fixed inset-0 bg-black/90 backdrop-blur-md z-[80] hidden items-center justify-center p-4">
         <div class="chiaroscuro-bg p-6 rounded-2xl border border-rose-900/50 max-w-2xl w-full max-h-[90vh] flex flex-col">
             <h3 class="text-sm font-black font-cinzel text-rose-400 mb-2 uppercase tracking-widest flex-shrink-0">🔒 IDENTITY PASSPORT & SYSTEM GUIDE</h3>
             
@@ -475,6 +504,20 @@
                         STATION STANDBY // CHOOSE AN ACTIVE CELL FROM MATRIX MAP ABOVE
                     </div>
                 </div>
+
+                <div class="mt-3 p-3 bg-gradient-to-br from-stone-950 to-[#1c0a10] border border-amber-600/30 rounded-xl">
+                    <span class="text-[8px] font-mono text-amber-400 font-bold block uppercase mb-2 tracking-widest">💰 TBA LEDGER VAULT BALANCES</span>
+                    <div class="grid grid-cols-2 gap-2 text-[10px] font-mono">
+                        <div class="p-2 bg-black/80 rounded border border-stone-950 flex justify-between items-center">
+                            <span class="text-stone-500">ETH CAPITAL:</span>
+                            <span id="tbaEthBalance" class="text-amber-500 font-bold">0.0000 ETH</span>
+                        </div>
+                        <div class="p-2 bg-black/80 rounded border border-stone-950 flex justify-between items-center">
+                            <span class="text-stone-500">WETH LIQUIDITY:</span>
+                            <span id="tbaWethBalance" class="text-rose-400 font-bold">0.0000 WETH</span>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="mt-3 pt-3 border-t border-stone-900/60">
                     <label class="text-[8px] text-stone-500 font-mono block mb-1 uppercase tracking-widest">// TOKEN BOUND ACCOUNT (TBA ADDRESS)</label>
@@ -555,6 +598,7 @@
                         <a id="linkSocial1" href="#" target="_blank" class="px-4 py-2 bg-stone-900 border border-stone-800 rounded-lg text-[10px] font-mono uppercase text-stone-300 hover:border-amber-500 hover:text-amber-500 transition-colors">✦ LinkedIn Gateway</a>
                         <a id="linkSocial2" href="#" target="_blank" class="px-4 py-2 bg-stone-900 border border-stone-800 rounded-lg text-[10px] font-mono uppercase text-stone-300 hover:border-amber-500 hover:text-amber-500 transition-colors">✦ X / Twitter Gateway</a>
                         <a id="linkSocial3" href="#" target="_blank" class="px-4 py-2 bg-stone-900 border border-stone-800 rounded-lg text-[10px] font-mono uppercase text-stone-300 hover:border-rose-600 hover:text-rose-400 transition-colors">✦ Council Room Discord</a>
+                        <a id="linkSocialClubHouse" href="#" target="_blank" class="px-4 py-2 bg-gradient-to-r from-[#78350f] to-[#d97706] border border-[#fef08a] rounded-lg text-[10px] font-mono font-black uppercase text-black hover:brightness-110 transition-all shadow-[0_0_15px_rgba(217,119,6,0.3)]">🏆 THE SOVEREIGN CLUB HOUSE & SOCIAL</a>
                     </div>
                 </div>
             </div>
@@ -858,10 +902,11 @@
 
     <div id="robotPanel" class="admin-locked chiaroscuro-bg mt-6 p-4 rounded-xl border border-stone-900 font-mono text-[10px] space-y-3 hidden">
         <span class="text-amber-500 font-bold uppercase block">// ARCHITECT COMMUNICATION CHANNELS ALIGNMENT</span>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
             <div><label class="block text-[8px] text-stone-500 mb-1">LINKEDIN LINK</label><input type="text" id="inputLink1" class="w-full bg-black border border-stone-900 p-2 rounded text-stone-300" /></div>
             <div><label class="block text-[8px] text-stone-500 mb-1">X / TWITTER LINK</label><input type="text" id="inputLink2" class="w-full bg-black border border-stone-900 p-2 rounded text-stone-300" /></div>
             <div><label class="block text-[8px] text-stone-500 mb-1">DISCORD ROOM LINK</label><input type="text" id="inputLink3" class="w-full bg-black border border-stone-900 p-2 rounded text-stone-300" /></div>
+            <div><label class="block text-[8px] text-stone-500 mb-1">CLUB HOUSE LINK</label><input type="text" id="inputLinkClubHouse" class="w-full bg-black border border-stone-900 p-2 rounded text-stone-300" /></div>
         </div>
         <button onclick="saveArchitectGateways(this)" class="px-4 py-2 bg-amber-700 text-black font-black text-[9px] rounded uppercase">RE-ALIGN VECTORS</button>
     </div>
@@ -1001,6 +1046,10 @@ const CONTRACT_ABI = [
     "function walletOfOwner(address owner) view returns (uint256[] memory)"
 ];
 
+const WETH_ABI = [
+    "function balanceOf(address account) view returns (uint256)"
+];
+
 let provider, signer, secureContract, irys;
 let readOnlyProvider, readOnlyContract;
 let pollingInterval = null; 
@@ -1021,6 +1070,47 @@ let currentLoadedMediaData = {
 };
 
 let arweaveTargetFieldType = ""; 
+
+// Session Sync Lock (ข้อ 3)
+let isTransactionPending = false;
+
+// LRU Blob Garbage Collector (ข้อ 3)
+const blobGcCache = new Map();
+const MAX_BLOB_CACHE_SIZE = 50;
+
+function registerBlobForGc(url, objectUrl) {
+    if (blobGcCache.has(url)) return;
+    if (blobGcCache.size >= MAX_BLOB_CACHE_SIZE) {
+        const oldestKey = blobGcCache.keys().next().value;
+        const oldestObjUrl = blobGcCache.get(oldestKey);
+        URL.revokeObjectURL(oldestObjUrl);
+        blobGcCache.delete(oldestKey);
+    }
+    blobGcCache.set(url, objectUrl);
+}
+
+// URI Whitelist Scanner (ข้อ 3)
+function scanSecureUri(uri) {
+    if (!uri || uri.trim() === "") return "";
+    const lower = uri.trim().toLowerCase();
+    if (lower.startsWith("javascript:") || lower.startsWith("data:")) {
+        showNotification("SECURITY BLOCK: Malicious URI sequence detected.", "error");
+        throw new Error("SECURITY_VIOLATION: URI scheme disallowed.");
+    }
+    return uri.trim();
+}
+
+// Numerical Precision Lock `fmtUnits` (ข้อ 3)
+function fmtUnits(value, decimals = 18) {
+    if (!value) return "0.0000";
+    try {
+        const formatted = ethers.utils.formatUnits(value, decimals);
+        const num = parseFloat(formatted);
+        return isNaN(num) ? "0.0000" : num.toFixed(4);
+    } catch (e) {
+        return "0.0000";
+    }
+}
 
 function getImperialRank(tokenId) {
     const id = parseInt(tokenId);
@@ -1051,6 +1141,7 @@ function decodeContractError(err) {
     return err.reason || err.message || "Transaction reverted by EVM";
 }
 
+// Exponential Backoff Fetch (ข้อ 3)
 async function fetchWithCacheSovereign(url, signal = null) {
     if (!url || url.trim() === "") return url;
     let cache = null;
@@ -1059,20 +1150,33 @@ async function fetchWithCacheSovereign(url, signal = null) {
         const cachedResponse = await cache.match(url);
         if (cachedResponse) {
             const blob = await cachedResponse.blob();
-            return URL.createObjectURL(blob);
+            const objectUrl = URL.createObjectURL(blob);
+            registerBlobForGc(url, objectUrl);
+            return objectUrl;
         }
     } catch (e) {
         console.warn("Storage exception: Cache API unavailable. Proceeding direct stream.");
     }
     
-    try {
-        let cleanUri = url.startsWith('ar://') ? url.replace('ar://', '') : url;
-        const fetchFromGateway = async (gatewayUrl) => {
-            const res = await fetch(gatewayUrl, { signal });
-            if (!res.ok) throw new Error("Gateway failure");
-            return await res.blob();
-        };
+    let cleanUri = url.startsWith('ar://') ? url.replace('ar://', '') : url;
+    const fetchFromGateway = async (gatewayUrl) => {
+        let retries = 3;
+        let delay = 1000;
+        while (retries > 0) {
+            try {
+                const res = await fetch(gatewayUrl, { signal });
+                if (!res.ok) throw new Error("Gateway failure");
+                return await res.blob();
+            } catch (err) {
+                retries--;
+                if (retries === 0) throw err;
+                await new Promise(r => setTimeout(r, delay));
+                delay *= 2; 
+            }
+        }
+    };
 
+    try {
         const fetchMission = url.startsWith('ar://') 
             ? Promise.any([
                 fetchFromGateway(`https://mainnet.irys.xyz/${cleanUri}`),
@@ -1085,16 +1189,71 @@ async function fetchWithCacheSovereign(url, signal = null) {
             if (signal) signal.addEventListener('abort', () => clearTimeout(timer));
         });
 
-        const blob = await Promise.race([fetchMission, timeoutGuardian(3500)]);
+        const blob = await Promise.race([fetchMission, timeoutGuardian(5000)]);
 
         if (cache) {
             const responseToCache = new Response(blob);
             await cache.put(url, responseToCache);
         }
-        return URL.createObjectURL(blob);
+        const objectUrl = URL.createObjectURL(blob);
+        registerBlobForGc(url, objectUrl);
+        return objectUrl;
     } catch (err) {
         return url.startsWith('ar://') ? `https://mainnet.irys.xyz/${url.replace('ar://', '')}` : url;
     }
+}
+
+// Media Preview Confirmation Modal Controller (ข้อ 4)
+function requestMediaConfirmation(uri, dnaString, mediaTypeHint = "") {
+    return new Promise((resolve) => {
+        const modal = document.getElementById('mediaConfirmModal');
+        const container = document.getElementById('mediaConfirmationPreviewContainer');
+        const dnaDisplay = document.getElementById('mediaConfirmDnaDisplay');
+        
+        container.innerHTML = "";
+        dnaDisplay.textContent = `DNA FIELD: ${dnaString || "N/A"}`;
+        
+        const lowerUri = (uri || "").toLowerCase();
+        const isVideoHint = (mediaTypeHint || "").toLowerCase().startsWith('video');
+        if (isVideoHint || lowerUri.endsWith('.mp4') || lowerUri.endsWith('.webm') || lowerUri.includes('video')) {
+            const video = document.createElement('video');
+            video.src = uri;
+            video.autoplay = true;
+            video.muted = true;
+            video.loop = true;
+            video.controls = true;
+            video.className = "max-h-full max-w-full object-contain";
+            container.appendChild(video);
+        } else {
+            const img = document.createElement('img');
+            img.src = uri;
+            img.className = "max-h-full max-w-full object-contain";
+            container.appendChild(img);
+        }
+
+        modal.classList.remove('hidden');
+
+        window.resolveMediaConfirm = (approved) => {
+            modal.classList.add('hidden');
+            container.innerHTML = "";
+            resolve(approved);
+        };
+    });
+}
+
+function requestActionConfirmation(title, message) {
+    return new Promise((resolve) => {
+        const modal = document.getElementById('actionConfirmModal');
+        const titleElem = document.getElementById('actionConfirmTitle');
+        const msgElem = document.getElementById('actionConfirmMessage');
+        if (titleElem) titleElem.textContent = title || "⚠ CRITICAL ENFORCEMENT";
+        if (msgElem) msgElem.textContent = message || "";
+        modal.classList.remove('hidden');
+        window.resolveActionConfirm = (approved) => {
+            modal.classList.add('hidden');
+            resolve(approved);
+        };
+    });
 }
 
 function showNotification(msg, type = 'error') {
@@ -1406,23 +1565,44 @@ function loadArchitectGateways() {
     const l1 = localStorage.getItem('sov_gate_l1') || "https://www.linkedin.com/in/machiavellian-dark-cool-441976219";
     const l2 = localStorage.getItem('sov_gate_l2') || "https://x.com/BungthongS45922";
     const l3 = localStorage.getItem('sov_gate_l3') || "https://discord.gg/SM7vaDKB";
-    
-    const lnk1 = document.getElementById('linkSocial1'), lnk2 = document.getElementById('linkSocial2'), lnk3 = document.getElementById('linkSocial3');
-    if(lnk1) lnk1.href = l1; if(lnk2) lnk2.href = l2; if(lnk3) lnk3.href = l3;
+    const l4 = localStorage.getItem('sov_gate_club') || "https://discord.gg/SM7vaDKB";
 
-    const inp1 = document.getElementById('inputLink1'), inp2 = document.getElementById('inputLink2'), inp3 = document.getElementById('inputLink3');
-    if(inp1 && inp2 && inp3) { inp1.value = l1; inp2.value = l2; inp3.value = l3; }
+    const lnk1 = document.getElementById('linkSocial1'), lnk2 = document.getElementById('linkSocial2'), lnk3 = document.getElementById('linkSocial3'), lnk4 = document.getElementById('linkSocialClubHouse');
+    if(lnk1) lnk1.href = l1;
+    if(lnk2) lnk2.href = l2;
+    if(lnk3) lnk3.href = l3;
+    if(lnk4) lnk4.href = l4;
+
+    const inp1 = document.getElementById('inputLink1'), inp2 = document.getElementById('inputLink2'), inp3 = document.getElementById('inputLink3'), inp4 = document.getElementById('inputLinkClubHouse');
+    if(inp1) inp1.value = l1;
+    if(inp2) inp2.value = l2;
+    if(inp3) inp3.value = l3;
+    if(inp4) inp4.value = l4;
 }
 
 function saveArchitectGateways(e) {
     const btn = toggleButtonLoading(e, true);
     setTimeout(() => {
-        localStorage.setItem('sov_gate_l1', document.getElementById('inputLink1')?.value.trim() || "");
-        localStorage.setItem('sov_gate_l2', document.getElementById('inputLink2')?.value.trim() || "");
-        localStorage.setItem('sov_gate_l3', document.getElementById('inputLink3')?.value.trim() || "");
-        loadArchitectGateways();
-        appendLog("Architect communication vectors re-aligned dynamically.", "text-orange-400 font-bold");
-        if (btn) toggleButtonLoading(btn, false);
+        try {
+            const v1 = document.getElementById('inputLink1')?.value.trim() || "";
+            const v2 = document.getElementById('inputLink2')?.value.trim() || "";
+            const v3 = document.getElementById('inputLink3')?.value.trim() || "";
+            const v4 = document.getElementById('inputLinkClubHouse')?.value.trim() || "";
+
+            // URI Whitelist Hardening: block javascript:/data: injection into stored links
+            [v1, v2, v3, v4].forEach(v => scanSecureUri(v));
+
+            localStorage.setItem('sov_gate_l1', v1);
+            localStorage.setItem('sov_gate_l2', v2);
+            localStorage.setItem('sov_gate_l3', v3);
+            localStorage.setItem('sov_gate_club', v4);
+            loadArchitectGateways();
+            appendLog("Architect communication vectors re-aligned dynamically.", "text-orange-400 font-bold");
+        } catch (err) {
+            appendLog(`Gateway re-alignment blocked: ${err.message}`, "text-red-500");
+        } finally {
+            if (btn) toggleButtonLoading(btn, false);
+        }
     }, 500);
 }
 
@@ -1453,32 +1633,32 @@ async function connectWallet(e) {
             signer = provider.getSigner();
             secureContract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
             
-            // [คงไว้] ป้องกัน Domino Effect: ใช้ Global Flag เช็คแทนการลบ Listeners ทั้งหมด
-            if (!window.walletListenersSetup) {
-                window.ethereum.on('accountsChanged', async (accounts) => {
-                    if (accounts.length === 0) {
-                        showNotification("SECURITY PROTOCOL: กระเป๋าถูกตัดการเชื่อมต่อ ระบบเข้าสู่โหมด Standby", "error");
-                        document.getElementById('btnConnect').textContent = "🔗 CONSECRATE SOVEREIGN LINK";
-                        const adminSector = document.getElementById('adminSector');
-                        if(adminSector) adminSector.classList.add('hidden');
-                        const robotPanel = document.getElementById('robotPanel');
-                        if(robotPanel) robotPanel.classList.add('hidden');
-                    } else {
-                        appendLog("Identity vector shift detected. Re-authenticating wallet...", "text-yellow-400");
-                        const fakeEvent = { currentTarget: document.getElementById('btnConnect') };
-                        connectWallet(fakeEvent);
-                    }
-                });
-
-                window.ethereum.on('chainChanged', (newChainId) => {
-                    if (newChainId !== BASE_MAINNET_CHAIN_ID) {
-                        showNotification("SECURITY WARNING: ตรวจพบการเปลี่ยน Network กรุณากลับมาที่ Base Mainnet", "error");
-                    }
-                });
-                
-                // ปักป้ายบอกระบบว่าลงทะเบียน Event ไปแล้ว ห้ามลงซ้ำอีกในการเรียกครั้งต่อไป
-                window.walletListenersSetup = true; 
+            // [ENFORCED CLEANUP]: ล้าง Event Listeners เก่าทิ้งก่อนผูกใหม่ เพื่อป้องกันซ้อนทับ (Race Condition) และ Memory Leak
+            if (window.ethereum.removeAllListeners) {
+                window.ethereum.removeAllListeners('accountsChanged');
+                window.ethereum.removeAllListeners('chainChanged');
             }
+
+            window.ethereum.on('accountsChanged', async (accounts) => {
+                if (accounts.length === 0) {
+                    showNotification("SECURITY PROTOCOL: กระเป๋าถูกตัดการเชื่อมต่อ ระบบเข้าสู่โหมด Standby", "error");
+                    document.getElementById('btnConnect').textContent = "🔗 CONSECRATE SOVEREIGN LINK";
+                    const adminSector = document.getElementById('adminSector');
+                    if(adminSector) adminSector.classList.add('hidden');
+                    const robotPanel = document.getElementById('robotPanel');
+                    if(robotPanel) robotPanel.classList.add('hidden');
+                } else {
+                    appendLog("Identity vector shift detected. Re-authenticating wallet...", "text-yellow-400");
+                    const fakeEvent = { currentTarget: document.getElementById('btnConnect') };
+                    connectWallet(fakeEvent);
+                }
+            });
+
+            window.ethereum.on('chainChanged', (newChainId) => {
+                if (newChainId !== BASE_MAINNET_CHAIN_ID) {
+                    showNotification("SECURITY WARNING: ตรวจพบการเปลี่ยน Network กรุณากลับมาที่ Base Mainnet", "error");
+                }
+            });
 
             // 4. ตรวจสอบสิทธิ์
             const isAuthorizedUser = await checkHolding(account);
@@ -1539,12 +1719,13 @@ async function connectWallet(e) {
             try {
                 if (!window.WebIrys) throw new Error("Irys Web SDK Bundle missing from runtime global space.");
 
+                // [NAMESPACE GUARD]: ใช้ Optional Chaining สกัด Fatal Error กรณี UMD Bundle โหลดไม่สมบูรณ์
                 const WebIrysCtor = (typeof window.WebIrys === 'function')
                     ? window.WebIrys
-                    : (window.WebIrys.WebIrys || window.WebIrys.default);
+                    : (window.WebIrys?.WebIrys || window.WebIrys?.default);
                 if (typeof WebIrysCtor !== 'function') throw new Error("Irys WebIrys constructor unresolved from SDK namespace.");
 
-                // [แก้ไขกลับตามข้อเท็จจิง]: ต้องใช้ token: "ethereum" แม้ว่าจะเชื่อมต่อบน Base Network ก็ตาม
+                // Pass the EIP-1193 injected provider straight through for Ethers v5 compatibility.
                 irys = new WebIrysCtor({
                     url: "https://mainnet.irys.xyz", 
                     token: "ethereum",
@@ -1634,13 +1815,13 @@ async function syncContractStates() {
             if(el) el.textContent = val;
         };
 
-        updateText('lblMintPrice', ethers.utils.formatEther(rMint));
-        updateText('lblNovaFee', ethers.utils.formatEther(rNova));
-        updateText('displayReserve', `${ethers.utils.formatEther(tStatus[0])} ETH`);
-        updateText('displayCouncilPool', `${ethers.utils.formatEther(tStatus[1])} ETH`);
+        updateText('lblMintPrice', fmtUnits(rMint));
+        updateText('lblNovaFee', fmtUnits(rNova));
+        updateText('displayReserve', `${fmtUnits(tStatus[0])} ETH`);
+        updateText('displayCouncilPool', `${fmtUnits(tStatus[1])} ETH`);
         updateText('displaySupply', `${tStatus[2].toString()} / 333`);
         updateText('lblHistoricalMint', tStatus[3].toString());
-        updateText('lblReservePerNFT', ethers.utils.formatEther(tStatus[4]));
+        updateText('lblReservePerNFT', fmtUnits(tStatus[4]));
 
         fetchAndDisplayProposals();
     } catch (err) { 
@@ -1708,7 +1889,7 @@ async function fetchAndDisplayProposals() {
                 const i = res.id;
                 const prop = res.p;
 
-                const amountEth = ethers.utils.formatEther(prop.amount || 0);
+                const amountEth = fmtUnits(prop.amount || 0);
                 const massVotes = prop.massVotes ? parseInt(prop.massVotes.toString(), 10) : 0;
                 const isExecuted = prop.executed || false;
                 const deadlineSeconds = prop.deadline ? prop.deadline.toNumber() : 0;
@@ -2057,7 +2238,7 @@ async function processDeedUploadAssignment(event) {
             const diffWithBuffer = diff.multipliedBy(1.15).integerValue(); 
             
             const diffString = diffWithBuffer.toString();
-            const costInEth = ethers.utils.formatEther(diffString);
+            const costInEth = fmtUnits(diffString);
             
             const isConfirmed = await requestFundConfirmation(costInEth);
             if (!isConfirmed) {
@@ -2254,10 +2435,11 @@ async function executeSetParams(e) {
 
 async function executeSetBaseUri(e) {
     if (!secureContract) { showNotification("Action suspended: Authenticate wallet signature first.", "error"); return; }
-    const uri = document.getElementById('inputBaseUri')?.value.trim();
+    let uri = document.getElementById('inputBaseUri')?.value.trim();
     if(!uri) return;
     const btn = toggleButtonLoading(e, true);
     try {
+        uri = scanSecureUri(uri); // URI Whitelist Hardening
         await secureContract.callStatic.setBaseURI(uri);
         const tx = await secureContract.setBaseURI(uri);
         await tx.wait();
@@ -2431,8 +2613,15 @@ async function triggerForge(type, e) {
         const file = event.target.files[0];
         if (!file) { cleanupFileInput(); return; }
 
-        // 2. [PRE-FLIGHT CONFIRMATION]: Safeguard barrier to eliminate accidental gas expenditures
-        const isConfirmed = confirm(`Are you sure you want to forge using "${file.name}" as the back-end media?\n\n(Confirmation triggers permanent Arweave upload and direct blockchain settlement.)`);
+        // 2. [PRE-FLIGHT CONFIRMATION]: Cryptographic Media Preview Modal (แทน confirm() 100%)
+        const previewObjectUrl = URL.createObjectURL(file);
+        const dnaField = document.getElementById('novaDnaInput')?.value.trim() || "N/A";
+        let isConfirmed = false;
+        try {
+            isConfirmed = await requestMediaConfirmation(previewObjectUrl, dnaField, file.type);
+        } finally {
+            URL.revokeObjectURL(previewObjectUrl);
+        }
         if (!isConfirmed) {
             fileInput.value = ""; // Flush file cache if aborted
             cleanupFileInput();
@@ -2562,11 +2751,14 @@ async function triggerIdentityNova(e) {
     
     const btn = toggleButtonLoading(e, true);
     try {
+        // URI Whitelist Hardening: block javascript:/data: on video & hidden payload refs
+        const safeVideo = scanSecureUri(video);
+        const safeHidden = scanSecureUri(hidden);
         const fee = await secureContract.novaFee();
         
-        await secureContract.callStatic.THE_SOVEREIGN_NOVA(id, dna, video, hidden, { value: fee });
+        await secureContract.callStatic.THE_SOVEREIGN_NOVA(id, dna, safeVideo, safeHidden, { value: fee });
         
-        const tx = await secureContract.THE_SOVEREIGN_NOVA(id, dna, video, hidden, { value: fee });
+        const tx = await secureContract.THE_SOVEREIGN_NOVA(id, dna, safeVideo, safeHidden, { value: fee });
         await tx.wait(); 
         syncContractStates();
         delete GLOBAL_NODE_CACHE[id.toString()];
@@ -2610,12 +2802,16 @@ async function executeUpdateIdentity(e) {
     const tokenId = validateTokenRange(rawId);
     if(!tokenId) return;
     
-    const frontUri = document.getElementById('forgeFrontUri')?.value.trim() || currentLoadedMediaData.front;
-    const backUri = document.getElementById('forgeBackUri')?.value.trim() || currentLoadedMediaData.back;
-    const videoUri = document.getElementById('novaVideoUri')?.value.trim() || currentLoadedMediaData.video;
+    let frontUri = document.getElementById('forgeFrontUri')?.value.trim() || currentLoadedMediaData.front;
+    let backUri = document.getElementById('forgeBackUri')?.value.trim() || currentLoadedMediaData.back;
+    let videoUri = document.getElementById('novaVideoUri')?.value.trim() || currentLoadedMediaData.video;
     
     const btn = toggleButtonLoading(e, true);
     try {
+        // URI Whitelist Hardening: block javascript:/data:, allow ar:// & https://
+        frontUri = scanSecureUri(frontUri);
+        backUri = scanSecureUri(backUri);
+        videoUri = scanSecureUri(videoUri);
         await secureContract.callStatic.updateIdentity(tokenId, frontUri, backUri, videoUri); 
         const tx = await secureContract.updateIdentity(tokenId, frontUri, backUri, videoUri);
         await tx.wait();
@@ -2659,7 +2855,10 @@ async function executeSovereignSupport(e) {
     const rawId = document.getElementById('settleTokenId')?.value.trim();
     const tokenId = validateTokenRange(rawId);
     if(!tokenId) return;
-    const confirmBurn = confirm("CRITICAL WARNING: You are about to permanently destroy this Asset Node to reclaim liquidity. This action CANNOT be undone. Are you absolutely sure?");
+    const confirmBurn = await requestActionConfirmation(
+        "☠ SOVEREIGN IMMOLATION",
+        `CRITICAL WARNING: You are about to permanently destroy Asset Node #${tokenId} to reclaim liquidity. This action CANNOT be undone.`
+    );
     if(!confirmBurn) return;
     
     const btn = toggleButtonLoading(e, true);
@@ -2929,8 +3128,10 @@ async function auditTokenFromLedger(tokenId) {
             if (mySession !== currentAuditSession) return; 
             // อัปเดตค่ากลับเข้าไปใน Input
             if (tbaInputElem) tbaInputElem.value = onChainTBA;
+            await refreshTbaBalances(onChainTBA, mySession);
         } catch(tbaErr) {
             if (tbaInputElem) tbaInputElem.value = "CRITICAL: FAILED TO EXTRACT DETERMINISTIC ADDR PIVOT";
+            setTbaBalanceDisplay("0.0000", "0.0000");
         }
 
         currentLoadedMediaData.front = mappedNode.front;
@@ -2979,6 +3180,38 @@ async function auditTokenFromLedger(tokenId) {
         // กรณี Error ให้แสดงคำว่า DORMANT ในช่อง Input
         const tbaInputElem = document.getElementById('tbaAddressDisplay');
         if(tbaInputElem) tbaInputElem.value = "DORMANT";
+
+        // Node ว่าง/Void: เคลียร์ยอดเงิน TBA เป็น 0 ตามข้อกำหนด
+        setTbaBalanceDisplay("0.0000", "0.0000");
+    }
+}
+
+// TBA Ledger Vault balance helpers (ข้อ 2)
+function setTbaBalanceDisplay(eth, weth) {
+    const ethElem = document.getElementById('tbaEthBalance');
+    const wethElem = document.getElementById('tbaWethBalance');
+    if (ethElem) ethElem.textContent = `${eth} ETH`;
+    if (wethElem) wethElem.textContent = `${weth} WETH`;
+}
+
+async function refreshTbaBalances(tbaAddress, sessionRef) {
+    // เคลียร์ค่าเป็น 0 ทันทีถ้า address ว่าง / เป็น zero address
+    if (!tbaAddress || !ethers.utils.isAddress(tbaAddress) || tbaAddress === ethers.constants.AddressZero) {
+        setTbaBalanceDisplay("0.0000", "0.0000");
+        return;
+    }
+    const netProvider = (secureContract && secureContract.provider) || readOnlyProvider;
+    if (!netProvider) { setTbaBalanceDisplay("0.0000", "0.0000"); return; }
+    try {
+        const wethContract = new ethers.Contract(WETH_ADDRESS, WETH_ABI, netProvider);
+        const [ethBal, wethBal] = await Promise.all([
+            netProvider.getBalance(tbaAddress),
+            wethContract.balanceOf(tbaAddress).catch(() => ethers.BigNumber.from(0))
+        ]);
+        if (typeof sessionRef !== 'undefined' && sessionRef !== currentAuditSession) return;
+        setTbaBalanceDisplay(fmtUnits(ethBal), fmtUnits(wethBal));
+    } catch (err) {
+        setTbaBalanceDisplay("0.0000", "0.0000");
     }
 }
 
