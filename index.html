@@ -6,19 +6,21 @@
     <meta name="theme-color" content="#0a1128" />
     <title>IMPERIAL SOVEREIGN ARCHITECTURE v1.2.0 (PRODUCTION MAINNET)</title>
 
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https: ar:; media-src 'self' blob: https: ar:; connect-src 'self' https://mainnet.base.org https://base-mainnet.g.alchemy.com https://base.llamarpc.com https://mainnet.irys.xyz https://arweave.net wss:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob: wss:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://unpkg.com https:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https:; font-src 'self' data: https://fonts.gstatic.com https:; img-src 'self' data: blob: https:; media-src 'self' blob: https:; connect-src 'self' https: wss: chrome-extension: extension:;">
 
     <style>
-        html, body { background-color: #000000 !important; }
+        html, body { background-color: #0a1128 !important; }
         body { visibility: hidden; }
         body.app-ready { visibility: visible; }
     </style>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script defer src="https://unpkg.com/@irys/sdk@0.1.1/build/bundle.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/@irys/sdk@0.1.1/build/bundle.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
     <style>
+
         @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght=700;900&family=JetBrains+Mono:wght=400;700;800&display=swap');
 
         :root {
@@ -810,7 +812,7 @@
                 <span class="text-[10px] font-mono font-bold text-amber-500 uppercase tracking-widest block border-b border-stone-900 pb-1">⚙ MANIFEST COMPONENT (7 AUTO-MAP FIELDS)</span>
                 <div>
                     <label class="text-[8px] text-stone-500 font-mono block mb-1">ROOT PROPERTY NAME</label>
-                    <input type="text" id="propName" value="Transfer Freedom" class="w-full bg-stone-950 border border-stone-900 p-2 text-[10px] font-mono text-stone-200 rounded outline-none" />
+                    <input type="text" id="propName" value="THE IMPERIAL SOVEREIGN DEED ♠️" class="w-full bg-stone-950 border border-stone-900 p-2 text-[10px] font-mono text-stone-200 rounded outline-none" />
                 </div>
                 <div class="space-y-2 max-h-64 overflow-y-auto scroll-dark pr-1">
                     <div class="bg-stone-950 p-2 rounded border border-stone-900">
@@ -1203,7 +1205,7 @@ async function fetchWithCacheSovereign(url, signal = null) {
     }
 }
 
-// Media Preview Confirmation Modal Controller (ข้อ 4)
+// สถาปัตยกรรมการจัดการหน้าต่างยืนยันมีเดียใหม่ ปลอดภัย ไร้สภาวะแทรกซ้อน
 function requestMediaConfirmation(uri, dnaString, mediaTypeHint = "") {
     return new Promise((resolve) => {
         const modal = document.getElementById('mediaConfirmModal');
@@ -1215,9 +1217,10 @@ function requestMediaConfirmation(uri, dnaString, mediaTypeHint = "") {
         
         const lowerUri = (uri || "").toLowerCase();
         const isVideoHint = (mediaTypeHint || "").toLowerCase().startsWith('video');
+        
         if (isVideoHint || lowerUri.endsWith('.mp4') || lowerUri.endsWith('.webm') || lowerUri.includes('video')) {
             const video = document.createElement('video');
-            video.src = uri;
+            video.src = scanSecureUri(uri); // ล้างความเสี่ยง XSS ผ่าน URI Validation Loop
             video.autoplay = true;
             video.muted = true;
             video.loop = true;
@@ -1226,20 +1229,25 @@ function requestMediaConfirmation(uri, dnaString, mediaTypeHint = "") {
             container.appendChild(video);
         } else {
             const img = document.createElement('img');
-            img.src = uri;
+            img.src = scanSecureUri(uri);
             img.className = "max-h-full max-w-full object-contain";
             container.appendChild(img);
         }
 
         modal.classList.remove('hidden');
 
-        window.resolveMediaConfirm = (approved) => {
+        // สร้างคอนโทรลเลอร์แบบจำกัดขอบเขตและล้างทิ้งอัตโนมัติเมื่อทำงานเสร็จ
+        const handleDecision = (approved) => {
             modal.classList.add('hidden');
             container.innerHTML = "";
+            window.resolveMediaConfirm = null; // ถอนราก Callback ออกจากหน่วยความจำ Global ทันที
             resolve(approved);
         };
+
+        window.resolveMediaConfirm = handleDecision;
     });
 }
+
 
 function requestActionConfirmation(title, message) {
     return new Promise((resolve) => {
@@ -1413,7 +1421,7 @@ async function executeGatewayUnlock(event) {
         return;
     }
     
-    const btn = toggleButtonLoading(event, true);
+  btn = toggleButtonLoading(event, true);
     try {
         const address = await signer.getAddress();
         const isHoldingDeed = await checkHolding(address);
@@ -1511,22 +1519,37 @@ async function loadDeedMetadata(tokenId) {
 }
 
 function toggleButtonLoading(targetInput, isLoading) {
-    if (!targetInput) return null;
-    const btn = targetInput.currentTarget || targetInput;
-    if (!btn?.classList) return null;
+    const btn = targetInput?.currentTarget || targetInput;
+    if (!btn || !btn.classList) return null;
 
     if (isLoading) {
-        if(!btn.dataset.originalText) btn.dataset.originalText = btn.innerHTML;
-        btn.innerHTML = `<span class="inline-block animate-spin mr-1">⏳</span> DISPATCHING...`;
+        if (!btn.dataset.originalText) btn.dataset.originalText = btn.textContent; // ใช้ textContent แทน innerHTML
+        
+        // [A11Y]: บอก Screen Reader ว่าระบบกำลังประมวลผล
+        btn.setAttribute('aria-busy', 'true');
         btn.disabled = true;
-        btn.classList.add('btn-processing');
+        btn.classList.add('btn-processing', 'cursor-not-allowed', 'opacity-70');
+        
+        // สร้าง Loading Element ด้วย DOM API ปลอดภัยกว่า innerHTML
+        btn.textContent = ' DISPATCHING...';
+        const spinner = document.createElement('span');
+        spinner.className = 'inline-block animate-spin mr-1';
+        spinner.setAttribute('aria-hidden', 'true');
+        spinner.textContent = '⏳';
+        btn.prepend(spinner);
+
     } else {
-        if(btn.dataset.originalText) btn.innerHTML = btn.dataset.originalText;
+        if (btn.dataset.originalText) btn.textContent = btn.dataset.originalText;
+        btn.removeAttribute('aria-busy');
         btn.disabled = false;
-        btn.classList.remove('btn-processing');
+        btn.classList.remove('btn-processing', 'cursor-not-allowed', 'opacity-70');
     }
     return btn;
 }
+
+/* ============================================================
+   SOVEREIGN INFRASTRUCTURE PIPELINE - PART 2 ARCHITECTURE
+   ============================================================ */
 
 async function initReadOnlyRPC() {
     const RPC_ENDPOINTS = [
@@ -1719,20 +1742,17 @@ async function connectWallet(e) {
             try {
                 if (!window.WebIrys) throw new Error("Irys Web SDK Bundle missing from runtime global space.");
 
-                // Irys SDK v0.1.1 (UMD build/bundle.js) exposes a namespace object
-                // { WebIrys, default } rather than the constructor directly, so we
-                // resolve the actual class before instantiating to avoid "not a constructor".
                 const WebIrysCtor = (typeof window.WebIrys === 'function')
                     ? window.WebIrys
                     : (window.WebIrys.WebIrys || window.WebIrys.default);
                 if (typeof WebIrysCtor !== 'function') throw new Error("Irys WebIrys constructor unresolved from SDK namespace.");
 
-                // Pass the EIP-1193 injected provider straight through for Ethers v5 compatibility.
                 irys = new WebIrysCtor({
                     url: "https://mainnet.irys.xyz", 
                     token: "ethereum",
-                    wallet: { provider: window.ethereum }
+                    wallet: { provider: provider }
                 });
+
                 await irys.ready();
                 
                 appendLog(`Autonomous Irys permanent settlement bridge successfully engaged.`, "text-emerald-400 font-bold");
@@ -2017,42 +2037,30 @@ function openDeedUploadTrigger(tokenId, fieldType) {
 
 /* ============================================================
    MOBILE-HARDENED IRYS UPLOAD SUBSYSTEM
-   - OS/Hardware detection + dynamic memory allocation
-   - Throttled progress tracking
-   - Auto-retry / network recovery
-   - iOS RAM-ceiling safe-guard
    ============================================================ */
 
-// 1) OS & HARDWARE DETECTION ---------------------------------
 function detectUploadEnvironment() {
     const ua = navigator.userAgent || "";
     const platform = navigator.platform || "";
-    const isIOS = /iPad|iPhone|iPod/.test(ua) ||
-        // iPadOS 13+ masquerades as Mac; disambiguate via touch points.
-        (platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isIOS = /iPad|iPhone|iPod/.test(ua) || (platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const isAndroid = /Android/i.test(ua);
     const isMobile = isIOS || isAndroid || /Mobi|Mobile/i.test(ua);
-    // deviceMemory (GB) is only exposed on Chromium; treat undefined as unknown.
     const deviceMemory = navigator.deviceMemory || (isMobile ? 2 : 8);
 
-    // Dynamic allocation: shrink chunk + concurrency on memory-constrained mobile
-    // so the GC can reclaim freed chunk buffers before the next batch is staged.
     let chunkSize, batchSize;
     if (isIOS) {
-        // iOS Safari has the lowest per-tab RAM ceiling -> most conservative.
-        chunkSize = 2 * 1024 * 1024;   // 2MB
+        chunkSize = 2 * 1024 * 1024;   
         batchSize = 1;
     } else if (isMobile || deviceMemory <= 4) {
-        chunkSize = 2 * 1024 * 1024;   // 2MB
+        chunkSize = 2 * 1024 * 1024;   
         batchSize = 2;
     } else {
-        chunkSize = 5 * 1024 * 1024;   // 5MB desktop
+        chunkSize = 5 * 1024 * 1024;   
         batchSize = 3;
     }
     return { isIOS, isAndroid, isMobile, deviceMemory, chunkSize, batchSize };
 }
 
-// 2) THROTTLED PROGRESS TRACKING -----------------------------
 function createProgressController(totalBytes) {
     const shell = document.getElementById('uploadProgressShell');
     const fill = document.getElementById('uploadProgressFill');
@@ -2066,7 +2074,6 @@ function createProgressController(totalBytes) {
     }
     function paint(force) {
         const now = performance.now();
-        // Throttle DOM writes to ~400ms to minimize repaints / jank on mobile.
         if (!force && now - lastPaint < 400) return;
         lastPaint = now;
         if (fill) fill.style.width = pct + '%';
@@ -2089,10 +2096,6 @@ function createProgressController(totalBytes) {
     };
 }
 
-// 3) AUTO-RETRY / NETWORK RECOVERY ---------------------------
-// chunkedUploader resumes from its internal cursor on a fresh uploadFile call,
-// so retrying the whole call recovers transient 4G/5G drops without re-sending
-// already-anchored chunks where the SDK supports it.
 async function uploadWithRetry(file, tags, env, progress, maxRetries = 4) {
     let attempt = 0;
     let lastErr;
@@ -2101,7 +2104,6 @@ async function uploadWithRetry(file, tags, env, progress, maxRetries = 4) {
         try { if (typeof uploader.setChunkSize === 'function') uploader.setChunkSize(env.chunkSize); } catch (e) {}
         try { if (typeof uploader.setBatchSize === 'function') uploader.setBatchSize(env.batchSize); } catch (e) {}
 
-        // chunkUpload fires per anchored chunk: { id, offset, size, totalUploaded }
         const onChunk = (info) => {
             try { progress.set(info && (info.totalUploaded ?? info.offset) || 0); } catch (e) {}
         };
@@ -2115,7 +2117,6 @@ async function uploadWithRetry(file, tags, env, progress, maxRetries = 4) {
             lastErr = err;
             const msg = (err && err.message ? err.message : String(err)).toLowerCase();
             const isUserAbort = msg.includes('declined') || msg.includes('rejected by user') || msg.includes('user denied');
-            // Do not retry deliberate user cancellation or hard RAM/fetch ceilings.
             if (isUserAbort) throw err;
             attempt++;
             if (attempt > maxRetries) break;
@@ -2129,12 +2130,9 @@ async function uploadWithRetry(file, tags, env, progress, maxRetries = 4) {
     throw lastErr;
 }
 
-// 4) iOS SAFE-GUARD ------------------------------------------
-// iOS Safari aborts the tab when a single allocation approaches its RAM ceiling
-// (surfacing as a generic "fetch"/"load failed" error). Warn before we even begin.
 function evaluateIosSafeguard(env, file, isVideo) {
     if (!env.isIOS) return { ok: true };
-    const IOS_VIDEO_SOFT_LIMIT = 150 * 1024 * 1024; // ~150MB practical safe ceiling on Safari
+    const IOS_VIDEO_SOFT_LIMIT = 150 * 1024 * 1024; 
     if (isVideo && file.size > IOS_VIDEO_SOFT_LIMIT) {
         return {
             ok: false,
@@ -2159,7 +2157,7 @@ async function processDeedUploadAssignment(event) {
     }
     
     let arUri = ""; 
-    const maxByteSize = 300 * 1024 * 1024; // 300 MB Constraints
+    const maxByteSize = 300 * 1024 * 1024; 
     if (file.size > maxByteSize) {
         appendLog(`Payload rejected: ${file.name} exceeds explicit 300 MB maximum constraints.`, "text-red-500 font-bold");
         showNotification("Structural exception: Upload payload sizes are strictly confined below the 300 MB threshold.", "error");
@@ -2212,7 +2210,6 @@ async function processDeedUploadAssignment(event) {
         }
     }
 
-    // Detect runtime environment + apply iOS RAM safe-guard BEFORE any heavy work.
     const env = detectUploadEnvironment();
     const guard = evaluateIosSafeguard(env, file, userIntentType === 'video' || isActuallyVideo);
     if (!guard.ok) {
@@ -2237,14 +2234,11 @@ async function processDeedUploadAssignment(event) {
         if (loadedBalance.isLessThan(price)) {
             const diff = price.minus(loadedBalance);
             const diffWithBuffer = diff.multipliedBy(1.15).integerValue(); 
-            
             const diffString = diffWithBuffer.toString();
             const costInEth = fmtUnits(diffString);
             
             const isConfirmed = await requestFundConfirmation(costInEth);
-            if (!isConfirmed) {
-                throw new Error("User declined the transaction funding protocol.");
-            }
+            if (!isConfirmed) throw new Error("User declined the transaction funding protocol.");
             try {
                 await irys.fund(diffWithBuffer);
             } catch (fundErr) {
@@ -2256,10 +2250,7 @@ async function processDeedUploadAssignment(event) {
         progress.show();
 
         const tags = [{ name: "Content-Type", value: file.type }];
-
-        // Adaptive chunking + per-chunk progress + auto-retry network recovery.
         const response = await uploadWithRetry(file, tags, env, progress);
-
         arUri = `ar://${response.data.id}`;
         
         appendLog(`Payload anchored permanently. TXID Identifier: ${response.data.id}`, "text-emerald-400 font-bold");
@@ -2298,7 +2289,6 @@ async function processDeedUploadAssignment(event) {
             statusBox.textContent = `NODE #${activeTargetDeedUploadSlot}: STREAM BROKEN`;
             statusBox.className = "text-[10px] text-red-500 font-mono font-bold uppercase";
         }
-        // Distinguish a RAM-ceiling crash (esp. iOS) from a normal cancellation.
         if (isMemoryCeilingError(err)) {
             const advice = env.isIOS
                 ? "iOS Safari ran out of memory for this payload. Please use a desktop browser or reduce the file size."
@@ -2306,7 +2296,9 @@ async function processDeedUploadAssignment(event) {
             appendLog(`Memory-ceiling failure detected: ${advice}`, "text-red-500 font-bold");
             showNotification(advice, "error");
         } else {
-            showNotification(`System Notification: ธุรกรรมการอัปโหลดหรือจ่ายค่าแก๊สถูกยกเลิก`, "error");
+            console.error("🔥 IRYS RAW ERROR TRACE:", err);
+            const actualError = err.message || "Unknown provider exception";
+            showNotification(`System Exception: ${actualError}`, "error");   
         }
     } finally {
         progress.hide();
@@ -2361,7 +2353,7 @@ async function buildAndUploadMetadata(e) {
         if (frontUri) {
             if (frontType === "video") {
                 metadata.animation_url = frontUri;
-                metadata.image = frontUri; // FIX: Fallback Image to standard compliant
+                metadata.image = frontUri; 
             } else {
                 metadata.image = frontUri;
             }
@@ -2440,7 +2432,7 @@ async function executeSetBaseUri(e) {
     if(!uri) return;
     const btn = toggleButtonLoading(e, true);
     try {
-        uri = scanSecureUri(uri); // URI Whitelist Hardening
+        uri = scanSecureUri(uri); 
         await secureContract.callStatic.setBaseURI(uri);
         const tx = await secureContract.setBaseURI(uri);
         await tx.wait();
@@ -2590,22 +2582,17 @@ async function triggerForge(type, e) {
         return;
     }
 
-    // [CRITICAL FETCH]: Instantly retrieve the pre-embedded front-end JSON URI from the architect
     const existingFrontUri = document.getElementById('forgeFrontUri')?.value.trim();
     if (!existingFrontUri) {
         showNotification("METADATA EXCEPTION: Architect front-end URI missing from system.", "error");
         return;
     }
 
-    // 1. Instantly trigger file selector for the back-end media
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
     fileInput.accept = 'image/*,video/*';
-    // [iOS SAFARI FIX] The dynamic input MUST be attached to the DOM before .click(),
-    // otherwise iOS/iPadOS Safari silently blocks the native file picker.
     fileInput.style.display = 'none';
 
-    // Guarantees the transient input is always detached from <body> once handled.
     const cleanupFileInput = () => {
         if (fileInput.parentNode === document.body) document.body.removeChild(fileInput);
     };
@@ -2614,7 +2601,6 @@ async function triggerForge(type, e) {
         const file = event.target.files[0];
         if (!file) { cleanupFileInput(); return; }
 
-        // 2. [PRE-FLIGHT CONFIRMATION]: Cryptographic Media Preview Modal (แทน confirm() 100%)
         const previewObjectUrl = URL.createObjectURL(file);
         const dnaField = document.getElementById('novaDnaInput')?.value.trim() || "N/A";
         let isConfirmed = false;
@@ -2624,7 +2610,7 @@ async function triggerForge(type, e) {
             URL.revokeObjectURL(previewObjectUrl);
         }
         if (!isConfirmed) {
-            fileInput.value = ""; // Flush file cache if aborted
+            fileInput.value = ""; 
             cleanupFileInput();
             return;
         }
@@ -2633,20 +2619,20 @@ async function triggerForge(type, e) {
         try {
             if (!irys) throw new Error("Irys SDK Bridge is offline. Establish wallet connection first.");
 
-            // 3. Single-pass permanent ingestion into Arweave
             appendLog(`Inscribing back-end media onto permanent Arweave storage...`, "text-blue-400");
             const env = detectUploadEnvironment();
             const tags = [{ name: "Content-Type", value: file.type }];
-            const response = await uploadWithRetry(file, tags, env);
+            
+            const progress = createProgressController(file.size);
+            progress.show();
+            const response = await uploadWithRetry(file, tags, env, progress); 
             const backMediaUri = `ar://${response.data.id}`;
 
             appendLog(`Back-end media successfully anchored: ${backMediaUri}`, "text-emerald-400 font-bold");
             
-            // Mirror state to UI layer
             const backUriField = document.getElementById('forgeBackUri');
             if (backUriField) backUriField.value = backMediaUri;
 
-            // 4. One-Shot Dual-Identity Settlement on Smart Contract
             appendLog(`Initiating sovereign transaction on Smart Contract (${type})...`, "text-yellow-400");
             const val = await secureContract.mintPrice();
             const tokenIdBn = ethers.BigNumber.from(tokenId);
@@ -2671,23 +2657,21 @@ async function triggerForge(type, e) {
             showNotification("Transaction failed. Check console/logs for details.", "error");
         } finally {
             if (btn) toggleButtonLoading(btn, false);
-            fileInput.value = ""; // Flush state
-            cleanupFileInput(); // [iOS SAFARI FIX] Detach transient input from <body>
+            fileInput.value = ""; 
+            cleanupFileInput(); 
         }
     };
 
-    // [iOS SAFARI FIX] Attach to <body> BEFORE triggering the native picker.
     document.body.appendChild(fileInput);
     fileInput.click();
 }
 
-// --- THE SOVEREIGN NOVA MODAL CONTROLLERS ---
 function openNovaWarn() {
     const modal = document.getElementById('novaWarnModal');
     if (modal) {
         modal.classList.remove('hidden');
         const ackCheckbox = document.getElementById('novaAck');
-        if (ackCheckbox) ackCheckbox.checked = false; // รีเซ็ตทุกครั้งที่เปิด
+        if (ackCheckbox) ackCheckbox.checked = false; 
     }
 }
 
@@ -2701,7 +2685,6 @@ function closeNovaWarn(isConfirmed) {
             showNotification("EXCEPTION: คุณต้องติ๊กยอมรับเงื่อนไขความเสี่ยงก่อนดำเนินการ", "error");
             return;
         }
-        // ยิงคำสั่งไปที่เครื่องยนต์หลัก
         const fakeEvent = { currentTarget: document.getElementById('novaConfirmBtn') };
         triggerIdentityNova(fakeEvent);
     }
@@ -2752,13 +2735,11 @@ async function triggerIdentityNova(e) {
     
     const btn = toggleButtonLoading(e, true);
     try {
-        // URI Whitelist Hardening: block javascript:/data: on video & hidden payload refs
         const safeVideo = scanSecureUri(video);
         const safeHidden = scanSecureUri(hidden);
         const fee = await secureContract.novaFee();
         
         await secureContract.callStatic.THE_SOVEREIGN_NOVA(id, dna, safeVideo, safeHidden, { value: fee });
-        
         const tx = await secureContract.THE_SOVEREIGN_NOVA(id, dna, safeVideo, safeHidden, { value: fee });
         await tx.wait(); 
         syncContractStates();
@@ -2809,7 +2790,6 @@ async function executeUpdateIdentity(e) {
     
     const btn = toggleButtonLoading(e, true);
     try {
-        // URI Whitelist Hardening: block javascript:/data:, allow ar:// & https://
         frontUri = scanSecureUri(frontUri);
         backUri = scanSecureUri(backUri);
         videoUri = scanSecureUri(videoUri);
@@ -2927,9 +2907,7 @@ async function renderToViewport(containerId, path, defaultText, explicitMediaTyp
         }
 
         container.dataset.blobUrl = finalUrl;
-        
         const mimeType = explicitMediaType ? explicitMediaType : guessMediaType(path);
-        
         renderMediaToDOM(container, finalUrl, mimeType);
 
     } catch (e) {
@@ -3067,6 +3045,7 @@ function applySlotToNova(slotNum) {
         showNotification("EXCEPTION: กรุณาใส่ลิงก์ Arweave (ar://) หรือ URL ในช่อง Template ก่อนกด SELECT & APPLY", "error");
     }
 }
+
 function getImperialRankDetailed(tokenId) {
     const id = parseInt(tokenId, 10);
     if (isNaN(id)) return "UNKNOWN ENTITY";
@@ -3113,7 +3092,6 @@ async function auditTokenFromLedger(tokenId) {
         const card = document.getElementById('sovereignFlipCard');
         if (card) card.classList.remove('flipped');
 
-        // สถาปัตยกรรมใหม่: เชื่อมโยงกับ tbaAddressDisplay และใช้ .value
         const tbaInputElem = document.getElementById('tbaAddressDisplay');
         if (tbaInputElem) tbaInputElem.value = "Calculating deterministic ERC-6551 TBA address hash...";
 
@@ -3127,7 +3105,6 @@ async function auditTokenFromLedger(tokenId) {
         try {
             const onChainTBA = await activeContract.getTBA(ethers.BigNumber.from(tokenId));
             if (mySession !== currentAuditSession) return; 
-            // อัปเดตค่ากลับเข้าไปใน Input
             if (tbaInputElem) tbaInputElem.value = onChainTBA;
             await refreshTbaBalances(onChainTBA, mySession);
         } catch(tbaErr) {
@@ -3178,16 +3155,13 @@ async function auditTokenFromLedger(tokenId) {
         const metaDisp = document.getElementById('activeDeedMetadataDisplay');
         if(metaDisp) metaDisp.textContent = `STATION IDLE // MATRIX CELL INDEX ${tokenId} IS EMPTY COLD SPACE`;
         
-        // กรณี Error ให้แสดงคำว่า DORMANT ในช่อง Input
         const tbaInputElem = document.getElementById('tbaAddressDisplay');
         if(tbaInputElem) tbaInputElem.value = "DORMANT";
 
-        // Node ว่าง/Void: เคลียร์ยอดเงิน TBA เป็น 0 ตามข้อกำหนด
         setTbaBalanceDisplay("0.0000", "0.0000");
     }
 }
 
-// TBA Ledger Vault balance helpers (ข้อ 2)
 function setTbaBalanceDisplay(eth, weth) {
     const ethElem = document.getElementById('tbaEthBalance');
     const wethElem = document.getElementById('tbaWethBalance');
@@ -3196,7 +3170,6 @@ function setTbaBalanceDisplay(eth, weth) {
 }
 
 async function refreshTbaBalances(tbaAddress, sessionRef) {
-    // เคลียร์ค่าเป็น 0 ทันทีถ้า address ว่าง / เป็น zero address
     if (!tbaAddress || !ethers.utils.isAddress(tbaAddress) || tbaAddress === ethers.constants.AddressZero) {
         setTbaBalanceDisplay("0.0000", "0.0000");
         return;
@@ -3295,50 +3268,12 @@ function setupMatrixGrid() {
             auditTokenFromLedger(tokenId);
             
             const stationLabel = document.getElementById('targetBridgeFieldLabel');
-            if (stationLabel) stationLabel.textContent = `TARGET ASPECT: NODE CORNER #${tokenId}`;
+            if (stationLabel) {
+                stationLabel.textContent = `TARGET ASPECT: NODE CORNER #${tokenId} [FRONT]`;
+            }
         }
     });
-    
-    const searchInput = document.getElementById('gridSearchInput');
-    if (searchInput) {
-        searchInput.addEventListener('input', filterSovereignGrid);
-    }
 }
-
-const LOG_MAX_ROWS = 100;
-let _logScrollQueued = false;
-
-function appendLog(msg, colorClass = 'text-slate-400') {
-    const box = document.getElementById('systemLogBox');
-    if (!box) return;
-    const timeStr = new Date().toUTCString();
-
-    const logEntry = document.createElement('div');
-    logEntry.className = colorClass + " mt-1 break-words";
-    logEntry.textContent = `[${timeStr}] > NEXUS: ${msg}`;
-
-    box.appendChild(logEntry);
-
-    // Batch-trim overflow in a single pass instead of repeated reflow-inducing reads,
-    // minimizing layout thrash / DOM repaints when the log is saturated.
-    const overflow = box.children.length - LOG_MAX_ROWS;
-    if (overflow > 0) {
-        const range = document.createRange();
-        range.setStartBefore(box.firstChild);
-        range.setEndAfter(box.children[overflow - 1]);
-        range.deleteContents();
-    }
-
-    // Coalesce scroll updates into one frame to avoid forced synchronous layout.
-    if (!_logScrollQueued) {
-        _logScrollQueued = true;
-        requestAnimationFrame(() => {
-            box.scrollTop = box.scrollHeight;
-            _logScrollQueued = false;
-        });
-    }
-}
-
 function switchStation(station) {
     const tabFront = document.getElementById("tabFront");
     const tabBack = document.getElementById("tabBack");
